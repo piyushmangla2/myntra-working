@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bani Women — Myntra Brand OS</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+<style>
+/* ── DESIGN TOKENS ── */
+:root {
+  --font-sans: 'DM Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-mono: 'DM Mono', 'Fira Code', 'Cascadia Code', monospace;
+  --color-text-primary: #1a1a18;
+  --color-text-secondary: #5f5e5a;
+  --color-text-tertiary: #9b9a96;
+  --color-background-primary: #ffffff;
+  --color-background-secondary: #f5f4f0;
+  --color-border-primary: #c8c7c0;
+  --color-border-secondary: #dddcD7;
+  --color-border-tertiary: #e8e7e2;
+  --color-background-success: #eaf3de;
+  --color-text-success: #3b6d11;
+  --color-background-warning: #faeeda;
+  --color-text-warning: #854f0b;
+  --color-background-danger: #fcebeb;
+  --color-text-danger: #a32d2d;
+  --color-background-info: #eeedfe;
+  --color-text-info: #3c3489;
+  --border-radius-md: 8px;
+  --border-radius-lg: 12px;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-text-primary: #f0efe9;
+    --color-text-secondary: #a8a7a2;
+    --color-text-tertiary: #6b6a66;
+    --color-background-primary: #1a1a18;
+    --color-background-secondary: #242420;
+    --color-border-primary: #3a3a36;
+    --color-border-secondary: #2e2e2a;
+    --color-border-tertiary: #252522;
+    --color-background-success: #1a2e0d;
+    --color-text-success: #6aad2a;
+    --color-background-warning: #2e200a;
+    --color-text-warning: #d4882a;
+    --color-background-danger: #2e0f0f;
+    --color-text-danger: #d96060;
+    --color-background-info: #1a1830;
+    --color-text-info: #9490e8;
+  }
+}
+
+/* ── RESET & BASE ── */
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:14px;-webkit-text-size-adjust:100%}
+body{font-family:var(--font-sans);background:var(--color-background-primary);color:var(--color-text-primary);min-height:100vh;line-height:1.5}
+
+/* ── LAYOUT ── */
+.app-shell{display:flex;flex-direction:column;height:100vh}
+.topbar{display:flex;align-items:center;gap:12px;padding:0 20px;height:52px;border-bottom:0.5px solid var(--color-border-tertiary);background:var(--color-background-primary);position:sticky;top:0;z-index:100;flex-shrink:0}
+.logo{font-size:14px;font-weight:600;letter-spacing:-.02em;color:var(--color-text-primary)}
+.logo span{color:var(--color-text-secondary);font-weight:400}
+.topbar-spacer{flex:1}
+.topbar-tag{font-size:11px;padding:3px 9px;border-radius:999px;background:var(--color-background-secondary);color:var(--color-text-secondary);border:0.5px solid var(--color-border-tertiary)}
+
+.main-layout{display:flex;flex:1;overflow:hidden}
+.sidebar{width:200px;flex-shrink:0;border-right:0.5px solid var(--color-border-tertiary);background:var(--color-background-secondary);padding:12px 8px;overflow-y:auto}
+.content{flex:1;overflow-y:auto;padding:20px 24px}
+
+/* ── NAV ── */
+.nav-section{font-size:10px;font-weight:500;color:var(--color-text-tertiary);text-transform:uppercase;letter-spacing:.08em;padding:4px 8px;margin-top:12px;margin-bottom:4px}
+.nav-section:first-child{margin-top:0}
+.nb{display:flex;align-items:center;gap:8px;width:100%;padding:7px 8px;border:none;border-radius:6px;font-size:12px;cursor:pointer;background:transparent;color:var(--color-text-secondary);text-align:left;transition:background .1s,color .1s}
+.nb:hover:not(.active){background:var(--color-background-primary)}
+.nb.active{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500;box-shadow:0 0 0 0.5px var(--color-border-tertiary)}
+.nb i{font-size:15px;width:16px;text-align:center;flex-shrink:0}
+.nb-label{flex:1}
+.new-dot{width:6px;height:6px;border-radius:50%;background:#7F77DD;flex-shrink:0}
+
+/* ── SECTIONS ── */
+.sec{display:none}.sec.active{display:block}
+.sec-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:8px}
+.sec-title{font-size:16px;font-weight:600;letter-spacing:-.02em}
+.sec-sub{font-size:12px;color:var(--color-text-secondary);margin-top:2px}
+
+/* ── COMPONENTS ── */
+.card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);padding:1.25rem;margin-bottom:1rem}
+.card-green{border-color:#97c459}
+.card-red{border-color:#f09595}
+.card-amber{border-color:#fac775}
+.card-purple{border-color:#afa9ec}
+.ct{font-size:10px;font-weight:600;color:var(--color-text-secondary);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1rem}
+.ct-up{color:var(--color-text-success)}.ct-dn{color:var(--color-text-danger)}.ct-warn{color:var(--color-text-warning)}
+
+.mg{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px;margin-bottom:1.25rem}
+.mc{background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:12px 14px}
+.ml{font-size:10px;color:var(--color-text-secondary);margin-bottom:4px;text-transform:uppercase;letter-spacing:.04em}
+.mv{font-size:18px;font-weight:500}
+.up{color:var(--color-text-success)}.dn{color:var(--color-text-danger)}.warn{color:var(--color-text-warning)}
+
+.g2{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1rem}
+.g3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem}
+
+.badge{display:inline-block;padding:2px 8px;border-radius:999px;font-size:11px;font-weight:500}
+.b-coord{background:#eeedfe;color:#3c3489}.b-dress{background:#fbeaf0;color:#72243e}
+.b-kurta{background:#e1f5ee;color:#085041}.b-top{background:#faeeda;color:#633806}
+.b-other{background:#f1efe8;color:#444441}
+.b-s{background:#eaf3de;color:#3b6d11;font-size:10px}.b-m{background:#e1f5ee;color:#085041;font-size:10px}
+.b-l{background:#e6f1fb;color:#185fa5;font-size:10px}.b-xl{background:#eeedfe;color:#3c3489;font-size:10px}
+.b-xxl{background:#faeeda;color:#633806;font-size:10px}
+
+.tab-row{display:flex;gap:2px;background:var(--color-background-secondary);border-radius:var(--border-radius-md);padding:3px;width:fit-content;margin-bottom:1rem;flex-wrap:wrap}
+.tab{padding:5px 14px;border-radius:6px;font-size:12px;cursor:pointer;color:var(--color-text-secondary);border:none;background:transparent;white-space:nowrap;transition:all .15s}
+.tab.active{background:var(--color-background-primary);color:var(--color-text-primary);font-weight:500;box-shadow:0 0 0 0.5px var(--color-border-tertiary)}
+
+.pill{display:inline-flex;align-items:center;gap:4px;padding:3px 10px;border-radius:999px;font-size:11px;margin:2px}
+.pill-ok{background:var(--color-background-success);color:var(--color-text-success)}
+.pill-warn{background:var(--color-background-warning);color:var(--color-text-warning)}
+.pill-info{background:#eeedfe;color:#3c3489}
+.pill-dn{background:var(--color-background-danger);color:var(--color-text-danger)}
+
+.tw{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:12px}
+th{text-align:left;padding:7px 10px;color:var(--color-text-secondary);font-weight:500;border-bottom:0.5px solid var(--color-border-tertiary);font-size:11px;white-space:nowrap;position:sticky;top:0;background:var(--color-background-primary);z-index:1}
+td{padding:7px 10px;border-bottom:0.5px solid var(--color-border-tertiary);white-space:nowrap}
+tr:last-child td{border-bottom:none}
+tr:hover td{background:var(--color-background-secondary)}
+
+.uz{border:1.5px dashed var(--color-border-secondary);border-radius:var(--border-radius-lg);padding:1.25rem;text-align:center;cursor:pointer;transition:all .2s}
+.uz:hover,.uz.drag{border-color:var(--color-border-primary);background:var(--color-background-secondary)}
+.uz input{display:none}
+.uz-icon{font-size:22px;color:var(--color-text-tertiary);margin-bottom:4px}
+.uz-label{font-size:12px;color:var(--color-text-secondary);margin:4px 0 2px}
+.uz-sub{font-size:10px;color:var(--color-text-tertiary)}
+.up-btn{display:inline-flex;align-items:center;gap:4px;padding:5px 11px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:11px;cursor:pointer;background:transparent;color:var(--color-text-primary);margin-top:8px}
+
+.btn-primary{padding:7px 14px;background:var(--color-text-primary);color:var(--color-background-primary);border:none;border-radius:var(--border-radius-md);font-size:12px;cursor:pointer;font-weight:500}
+.btn-secondary{padding:6px 12px;background:transparent;color:var(--color-text-secondary);border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;cursor:pointer}
+.btn-secondary:hover{background:var(--color-background-secondary)}
+
+.fsel{padding:6px 9px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;background:var(--color-background-primary);color:var(--color-text-primary);cursor:pointer}
+.search-input{flex:1;min-width:150px;padding:7px 10px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;background:var(--color-background-primary);color:var(--color-text-primary)}
+.search-input:focus,.fsel:focus{outline:none;border-color:var(--color-border-primary)}
+.frow{display:flex;gap:6px;margin-bottom:1rem;flex-wrap:wrap;align-items:center}
+
+.br{display:flex;align-items:center;gap:8px;margin-bottom:9px}
+.bl{font-size:12px;min-width:100px;color:var(--color-text-primary)}
+.bt{flex:1;height:6px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden}
+.bf{height:100%;border-radius:3px}
+.bv{font-size:11px;color:var(--color-text-secondary);min-width:56px;text-align:right}
+
+.pl-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:0.5px solid var(--color-border-tertiary);font-size:12px;gap:8px}
+.pl-row:last-child{border-bottom:none}
+.pl-tot{display:flex;justify-content:space-between;padding:10px 0 4px;font-size:13px;font-weight:500;border-top:1px solid var(--color-border-primary);margin-top:6px}
+.sep{border:none;border-top:0.5px solid var(--color-border-tertiary);margin:8px 0}
+
+.cogs-input{width:82px;padding:5px 7px;border:0.5px solid var(--color-border-secondary);border-radius:var(--border-radius-md);font-size:12px;background:var(--color-background-primary);color:var(--color-text-primary);text-align:right}
+.cogs-input:focus{outline:none;border-color:#7f77dd}
+.cogs-input.filled{border-color:#1d9e75}
+.cogs-input.warn-margin{border-color:#ef9f27}
+.cogs-input.bad-margin{border-color:#e24b4a}
+
+.info-box{border-radius:var(--border-radius-md);padding:10px 14px;margin-bottom:1rem;font-size:12px;line-height:1.7}
+.info-box-amber{background:var(--color-background-warning);border:0.5px solid #fac775;color:var(--color-text-warning)}
+.info-box-green{background:var(--color-background-success);border:0.5px solid #97c459;color:var(--color-text-success)}
+.info-box-red{background:var(--color-background-danger);border:0.5px solid #f09595;color:var(--color-text-danger)}
+.info-box-purple{background:#eeedfe;border:0.5px solid #afa9ec;color:#3c3489}
+
+.progress-track{height:5px;background:var(--color-background-secondary);border-radius:3px;overflow:hidden;margin-bottom:4px}
+.progress-fill{height:100%;border-radius:3px;transition:width .4s}
+
+.empty{text-align:center;padding:2.5rem 1rem;color:var(--color-text-secondary);font-size:13px}
+.cw{position:relative;width:100%}
+
+code{font-family:var(--font-mono);font-size:11px;background:var(--color-background-secondary);padding:1px 5px;border-radius:3px}
+
+/* ── CASH POSITION ── */
+.cash-box{border-radius:var(--border-radius-lg);padding:1rem 1.25rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px}
+
+/* ── RESPONSIVE ── */
+@media(max-width:768px){
+  .sidebar{display:none}
+  .content{padding:14px 16px}
+  .g2,.g3{grid-template-columns:1fr}
+  .mg{grid-template-columns:repeat(2,1fr)}
+}
+</style>
+</head>
+<body>
+
+<div class="app-shell">
+
+<!-- TOPBAR -->
+<header class="topbar">
+  <div class="logo">Bani Women <span>Brand OS</span></div>
+  <div class="topbar-spacer"></div>
+  <div class="topbar-tag">Myntra · April 2026</div>
+  <button class="btn-secondary" style="font-size:11px" onclick="sendFeedback()">
+    <i class="ti ti-message-circle" style="font-size:13px"></i> Feedback
+  </button>
+</header>
+
+<div class="main-layout">
+
+<!-- SIDEBAR -->
+<nav class="sidebar">
+  <div class="nav-section">Reports</div>
+  <button class="nb active" onclick="go('upload',this)"><i class="ti ti-upload"></i><span class="nb-label">Upload reports</span></button>
+
+  <div class="nav-section">Analytics</div>
+  <button class="nb" onclick="go('dashboard',this)"><i class="ti ti-chart-bar"></i><span class="nb-label">Dashboard</span></button>
+  <button class="nb" onclick="go('pl',this)"><i class="ti ti-file-invoice"></i><span class="nb-label">P&L</span></button>
+  <button class="nb" onclick="go('cashflow',this)"><i class="ti ti-clock-dollar"></i><span class="nb-label">Cash position</span></button>
+  <button class="nb" onclick="go('nod',this)"><i class="ti ti-receipt"></i><span class="nb-label">NOD <span class="new-dot"></span></span></button>
+
+  <div class="nav-section">Products</div>
+  <button class="nb" onclick="go('profitability',this)"><i class="ti ti-trending-up"></i><span class="nb-label">True margins</span></button>
+  <button class="nb" onclick="go('products',this)"><i class="ti ti-sitemap"></i><span class="nb-label">Product master</span></button>
+  <button class="nb" onclick="go('sku',this)"><i class="ti ti-layers-intersect"></i><span class="nb-label">SKU analytics</span></button>
+
+  <div class="nav-section">Operations</div>
+  <button class="nb" onclick="go('returns',this)"><i class="ti ti-arrow-back-up"></i><span class="nb-label">Returns</span></button>
+  <button class="nb" onclick="go('operations',this)"><i class="ti ti-route"></i><span class="nb-label">Order flow</span></button>
+  <button class="nb" onclick="go('settlement',this)"><i class="ti ti-wallet"></i><span class="nb-label">Settlement</span></button>
+  <button class="nb" onclick="go('geo',this)"><i class="ti ti-map-pin"></i><span class="nb-label">Geography</span></button>
+
+  <div class="nav-section">Marketing</div>
+  <button class="nb" onclick="go('ads',this)"><i class="ti ti-speakerphone"></i><span class="nb-label">Ads (PLA/PCA)</span></button>
+</nav>
+
+<!-- CONTENT -->
+<main class="content">
+
+<!-- ── UPLOAD ── -->
+<div class="sec active" id="sec-upload">
+  <div class="sec-header">
+    <div><div class="sec-title">Upload Myntra reports</div><div class="sec-sub">Upload your monthly CSVs and the new Excel settlement format</div></div>
+  </div>
+  <div class="info-box info-box-purple">
+    <strong>New revamped Excel format supported.</strong> Upload <code>SellerYearMonthWeekKey…_2_.xlsx</code> for settled and <code>…_3_.xlsx</code> for unsettled — the platform auto-parses all sheets. Old CSVs still work too.
+  </div>
+  <div class="g3">
+    <div class="card"><div class="ct"><i class="ti ti-check" style="color:var(--color-text-success)"></i> Sales report</div>
+      <div class="uz" onclick="document.getElementById('fi-sales').click()" ondragover="dragOv(event,this)" ondragleave="dragLv(this)" ondrop="dropF(event,'fi-sales',this)">
+        <input type="file" id="fi-sales" accept=".csv" onchange="loadCSV(this,'sales')">
+        <i class="ti ti-file-spreadsheet uz-icon"></i><p class="uz-label" id="lbl-sales">Sales report CSV</p>
+        <p class="uz-sub">Sale_Order_Code, SKU_Code, Mrp, Total_Amount…</p>
+        <button class="up-btn"><i class="ti ti-upload"></i> Choose</button>
+      </div><div id="st-sales"></div>
+    </div>
+    <div class="card card-purple"><div class="ct"><i class="ti ti-sparkles" style="color:#7f77dd"></i> Settlement (new Excel)</div>
+      <div class="uz" onclick="document.getElementById('fi-sett').click()" ondragover="dragOv(event,this)" ondragleave="dragLv(this)" ondrop="dropF(event,'fi-sett',this)">
+        <input type="file" id="fi-sett" accept=".csv,.xlsx" onchange="loadSettlement(this)">
+        <i class="ti ti-file-spreadsheet uz-icon" style="color:#7f77dd"></i><p class="uz-label" id="lbl-sett">SellerYearMonthWeekKey…_2_.xlsx</p>
+        <p class="uz-sub">Forward + reverse settled · NOD · SPF</p>
+        <button class="up-btn"><i class="ti ti-upload"></i> Choose</button>
+      </div><div id="st-sett"></div>
+    </div>
+    <div class="card card-purple"><div class="ct"><i class="ti ti-sparkles" style="color:#7f77dd"></i> Unsettled (new Excel)</div>
+      <div class="uz" onclick="document.getElementById('fi-uns').click()" ondragover="dragOv(event,this)" ondragleave="dragLv(this)" ondrop="dropF(event,'fi-uns',this)">
+        <input type="file" id="fi-uns" accept=".csv,.xlsx" onchange="loadUnsettled(this)">
+        <i class="ti ti-file-spreadsheet uz-icon" style="color:#7f77dd"></i><p class="uz-label" id="lbl-uns">SellerYearMonthWeekKey…_3_.xlsx</p>
+        <p class="uz-sub">Forward + reverse unsettled</p>
+        <button class="up-btn"><i class="ti ti-upload"></i> Choose</button>
+      </div><div id="st-uns"></div>
+    </div>
+    <div class="card"><div class="ct"><i class="ti ti-check" style="color:var(--color-text-success)"></i> Order flow</div>
+      <div class="uz" onclick="document.getElementById('fi-flow').click()" ondragover="dragOv(event,this)" ondragleave="dragLv(this)" ondrop="dropF(event,'fi-flow',this)">
+        <input type="file" id="fi-flow" accept=".csv" onchange="loadCSV(this,'flow')">
+        <i class="ti ti-file-spreadsheet uz-icon"></i><p class="uz-label" id="lbl-flow">Order flow CSV</p>
+        <p class="uz-sub">order_item_status, delivery dates, RTOs…</p>
+        <button class="up-btn"><i class="ti ti-upload"></i> Choose</button>
+      </div><div id="st-flow"></div>
+    </div>
+    <div class="card"><div class="ct"><i class="ti ti-sitemap" style="color:#7f77dd"></i> Listing IDs (VAN mapping)</div>
+      <div class="uz" onclick="document.getElementById('fi-van').click()" ondragover="dragOv(event,this)" ondragleave="dragLv(this)" ondrop="dropF(event,'fi-van',this)">
+        <input type="file" id="fi-van" accept=".csv,.xlsx" onchange="loadVAN(this)">
+        <i class="ti ti-sitemap uz-icon" style="color:#7f77dd"></i><p class="uz-label" id="lbl-van">Listing_IDs.xlsx</p>
+        <p class="uz-sub">VAN ↔ Style ID ↔ SKU ID</p>
+        <button class="up-btn"><i class="ti ti-upload"></i> Choose</button>
+      </div><div id="st-van"></div>
+    </div>
+    <div class="card" style="background:var(--color-background-secondary);border:none">
+      <div class="ct">Report guide — Myntra portal</div>
+      <div style="font-size:11px;color:var(--color-text-secondary);line-height:2.2">
+        <div><i class="ti ti-point-filled" style="color:var(--color-text-success);font-size:10px"></i> Reports → Sales</div>
+        <div><i class="ti ti-point-filled" style="color:#7f77dd;font-size:10px"></i> Reports → Settlement → <strong>Seller…_2_.xlsx</strong> (new)</div>
+        <div><i class="ti ti-point-filled" style="color:#7f77dd;font-size:10px"></i> Reports → Settlement → <strong>Seller…_3_.xlsx</strong> (new)</div>
+        <div><i class="ti ti-point-filled" style="color:var(--color-text-success);font-size:10px"></i> Reports → Order flow</div>
+        <div><i class="ti ti-point-filled" style="color:var(--color-text-success);font-size:10px"></i> Catalogue → Listing_IDs.xlsx</div>
+        <div><i class="ti ti-point-filled" style="color:var(--color-text-warning);font-size:10px"></i> COGS — enter manually in True margins tab</div>
+      </div>
+    </div>
+  </div>
+  <div class="card" id="upload-summary" style="display:none">
+    <div class="ct">Loaded data</div>
+    <div id="upload-pills"></div>
+    <div style="margin-top:1rem;display:flex;gap:8px;flex-wrap:wrap">
+      <button class="btn-primary" onclick="goId('dashboard')">View dashboard →</button>
+      <button class="btn-primary" style="background:#a32d2d" onclick="goId('cashflow')">Cash position →</button>
+      <button class="btn-primary" style="background:#3b6d11" onclick="goId('profitability')">True margins →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── DASHBOARD ── -->
+<div class="sec" id="sec-dashboard">
+  <div class="sec-header">
+    <div><div class="sec-title">Dashboard</div><div class="sec-sub" id="db-period">Upload reports to see data</div></div>
+  </div>
+  <div id="db-cashbox"></div>
+  <div class="mg" id="db-metrics"><div class="empty" style="grid-column:1/-1">Upload reports to see metrics</div></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Revenue by category</div><div id="cat-bars"><div class="empty">No data</div></div></div>
+    <div class="card"><div class="ct">Where does gross MRP go?</div><div id="money-flow"><div class="empty">No data</div></div></div>
+  </div>
+  <div class="card"><div class="ct">Daily orders — forward vs returns</div><div class="cw" style="height:175px"><canvas id="trend-chart"></canvas></div></div>
+</div>
+
+<!-- ── P&L ── -->
+<div class="sec" id="sec-pl">
+  <div class="sec-header"><div class="sec-title">Profit & Loss</div></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Consolidated P&L — incl. SJIT, NOD, returns</div><div id="pl-rows"><div class="empty">Upload settlement report</div></div></div>
+    <div class="card"><div class="ct">Margin waterfall</div><div class="cw" style="height:300px"><canvas id="wf-chart"></canvas></div></div>
+  </div>
+  <div class="card"><div class="ct">P&L by category</div>
+    <div class="tw"><table><thead><tr><th>Category</th><th>Orders</th><th>Returns</th><th>Ret%</th><th>Revenue</th><th>Clawback</th><th>Commission</th><th>Logistics</th><th>TCS+TDS</th><th>True net</th><th>Margin%</th></tr></thead><tbody id="pl-cat"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ── CASH POSITION ── -->
+<div class="sec" id="sec-cashflow">
+  <div class="sec-header"><div class="sec-title">Cash position with Myntra</div></div>
+  <div id="cf-summary"></div>
+  <div class="tab-row">
+    <button class="tab active" onclick="cfTab('fwd',this)">↑ Myntra owes you</button>
+    <button class="tab" onclick="cfTab('ret',this)">↓ You owe Myntra</button>
+  </div>
+  <div id="cf-fwd-section">
+    <div class="mg" id="cf-fwd-metrics"></div>
+    <div class="card">
+      <div class="ct">Unsettled forward orders</div>
+      <div class="frow">
+        <select class="fsel" id="cf-cat-f" onchange="renderCFTable()"><option value="">All categories</option><option>Co-Ords</option><option>Kurta Sets</option><option>Dresses</option><option>Tops</option></select>
+        <select class="fsel" id="cf-zone-f" onchange="renderCFTable()"><option value="">All zones</option><option>LOCAL</option><option>ZONAL</option><option>NATIONAL</option></select>
+      </div>
+      <div class="tw"><table><thead><tr><th>VAN (internal)</th><th>Category</th><th>Order date</th><th>Age</th><th>Customer paid</th><th>SJIT credit</th><th>Expected</th><th>PENDING</th><th>Zone</th></tr></thead><tbody id="cf-table"></tbody></table></div>
+      <div id="cf-total" style="padding:7px 0;font-size:12px;font-weight:500;border-top:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;margin-top:4px"></div>
+    </div>
+  </div>
+  <div id="cf-ret-section" style="display:none">
+    <div class="mg" id="cf-ret-metrics"></div>
+    <div class="card">
+      <div class="ct ct-warn">Unsettled return clawbacks — will be debited from future settlements</div>
+      <div class="tw"><table><thead><tr><th>VAN (internal)</th><th>Category</th><th>Return type</th><th>Return date</th><th>Age</th><th>Customer paid</th><th>Pending clawback</th><th>Zone</th></tr></thead><tbody id="cf-ret-table"></tbody></table></div>
+      <div id="cf-ret-total" style="padding:7px 0;font-size:12px;font-weight:500;border-top:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;margin-top:4px"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── NOD ── -->
+<div class="sec" id="sec-nod">
+  <div class="sec-header"><div><div class="sec-title">Non-Order Deductions (NOD)</div><div class="sec-sub">Platform charges, SPF credits, and adjustments from Myntra</div></div></div>
+  <div class="mg" id="nod-metrics"></div>
+  <div class="g2">
+    <div class="card"><div class="ct ct-up">Credits to your account</div><div id="nod-credits"><div class="empty">Upload new Excel settlement file</div></div></div>
+    <div class="card"><div class="ct ct-dn">Debits from your account</div><div id="nod-debits"><div class="empty">Upload new Excel settlement file</div></div></div>
+  </div>
+  <div class="card"><div class="ct">Full NOD log</div><div class="tw"><table><thead><tr><th>Type</th><th>Amount</th><th>Description</th></tr></thead><tbody id="nod-table"></tbody></table></div></div>
+  <div class="card" style="background:var(--color-background-secondary);border:none">
+    <div class="ct">NOD decoder</div>
+    <div style="font-size:12px;color:var(--color-text-secondary);line-height:2">
+      <div><strong style="color:var(--color-text-primary)">ForwardAutoSPF / spf_rbnr</strong> — SPF (Seller Protection Fund) payouts for wrong/damaged returns. ✓ Money in.</div>
+      <div><strong style="color:var(--color-text-primary)">SplitNOD…</strong> — Bulk platform charges: PCA ads, catalogue fees, return processing. Investigate with Myntra AM.</div>
+      <div><strong style="color:var(--color-text-primary)">M27KACN / M27KAIN</strong> — Myntra credit/debit notes (commission adjustments). Check with account manager.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ── TRUE MARGINS / PROFITABILITY ── -->
+<div class="sec" id="sec-profitability">
+  <div class="sec-header">
+    <div><div class="sec-title">True margins per design</div><div class="sec-sub">Net settlement minus return costs minus COGS — the real picture</div></div>
+    <button class="btn-secondary" onclick="exportProfitCSV()"><i class="ti ti-download"></i> Export CSV</button>
+  </div>
+  <div class="info-box info-box-amber">
+    <strong>Returns are destroying margins.</strong> Top designs have 30–55% return rates eroding 30–48pp of margin. The COGS column is editable — adjust any value and margins recalculate live.
+  </div>
+  <div class="mg" id="prof-metrics"></div>
+  <div class="tab-row">
+    <button class="tab active" onclick="profTab('table',this)">Design P&L table</button>
+    <button class="tab" onclick="profTab('waterfall',this)">Per-unit waterfall</button>
+    <button class="tab" onclick="profTab('analysis',this)">Portfolio analysis</button>
+  </div>
+  <div id="prof-table-sec">
+    <div class="frow">
+      <input class="search-input" id="prof-search" placeholder="Search design…" oninput="renderProf()">
+      <select class="fsel" id="prof-cat" onchange="renderProf()"><option value="">All categories</option><option>Co-Ords</option><option>Kurta Sets</option><option>Dresses</option><option>Tops</option><option>Other</option></select>
+      <select class="fsel" id="prof-sort" onchange="renderProf()"><option value="fo">By orders ↓</option><option value="gm">By gross margin% ↓</option><option value="tgp">By total gross profit ↓</option><option value="retrate">By return rate ↓</option><option value="erosion">By margin erosion ↓</option></select>
+      <select class="fsel" id="prof-show" onchange="renderProf()"><option value="all">All designs</option><option value="loss">Loss-making</option><option value="high-ret">High return (&gt;35%)</option></select>
+    </div>
+    <div class="tw" style="max-height:560px;overflow-y:auto">
+    <table><thead><tr>
+      <th>#</th><th>Design</th><th>Cat</th><th>Fwd</th><th>Ret</th><th>Ret%</th>
+      <th>Avg sell</th><th>Fwd settled/ord</th><th>Ret cost/ord</th><th>True net/ord</th>
+      <th style="color:#7f77dd">COGS/unit ← edit</th>
+      <th>Gross profit/unit</th><th>Gross margin%</th><th>Total gross profit</th><th>Ret erosion</th>
+    </tr></thead><tbody id="prof-tbody"></tbody></table>
+    </div>
+    <div id="prof-count" style="padding:7px 0;font-size:11px;color:var(--color-text-secondary);border-top:0.5px solid var(--color-border-tertiary);display:flex;justify-content:space-between;margin-top:4px"><span id="prof-count-txt"></span><span id="prof-total-txt" style="font-weight:500"></span></div>
+  </div>
+  <div id="prof-wf-sec" style="display:none">
+    <div class="frow"><select class="fsel" id="wf-design" onchange="renderWF()" style="min-width:280px"><option value="">Select a design…</option></select></div>
+    <div id="wf-content"></div>
+  </div>
+  <div id="prof-analysis-sec" style="display:none">
+    <div class="g2">
+      <div class="card"><div class="ct">Gross margin by category (true, after returns)</div><div id="pa-cat-bars"></div></div>
+      <div class="card"><div class="ct">Designs by gross margin bucket</div><div id="pa-dist"></div></div>
+    </div>
+    <div class="g2">
+      <div class="card"><div class="ct">Top 10 by total gross profit</div><div class="tw"><table><thead><tr><th>Design</th><th>Cat</th><th>Orders</th><th>Ret%</th><th>True net</th><th>Margin%</th><th>Total GP</th></tr></thead><tbody id="pa-top"></tbody></table></div></div>
+      <div class="card"><div class="ct">Bottom 10 — loss or thin margin</div><div class="tw"><table><thead><tr><th>Design</th><th>Cat</th><th>Orders</th><th>Ret%</th><th>True net</th><th>Margin%</th><th>Total GP</th></tr></thead><tbody id="pa-bottom"></tbody></table></div></div>
+    </div>
+    <div class="card"><div class="ct">P&L bridge — sell price → gross profit</div><div id="pa-bridge"></div></div>
+    <div class="card"><div class="ct">What-if: reduce returns by 10%</div><div id="pa-whatif"></div></div>
+  </div>
+</div>
+
+<!-- ── PRODUCT MASTER ── -->
+<div class="sec" id="sec-products">
+  <div class="sec-header"><div><div class="sec-title">Product master — VAN ↔ Myntra IDs</div><div class="sec-sub" id="pm-sub">Upload Listing_IDs.xlsx to see all products</div></div></div>
+  <div class="mg" id="pm-metrics"></div>
+  <div class="card">
+    <div class="ct">Quick lookup</div>
+    <div class="frow">
+      <input class="search-input" id="lookup-q" placeholder="Type VAN prefix, design code, SKU or style ID…" oninput="doLookup()">
+      <select class="fsel" id="lookup-type"><option value="all">All fields</option><option value="van">VAN</option><option value="sku">SKU ID</option><option value="style">Style ID</option></select>
+    </div>
+    <div id="lookup-result"></div>
+  </div>
+  <div class="card" style="background:var(--color-background-secondary);border:none">
+    <div class="ct">VAN decoder</div>
+    <div style="font-size:12px;color:var(--color-text-secondary);display:grid;grid-template-columns:1fr 1fr;gap:4px 20px;line-height:2">
+      <div><code>_COD</code> = Co-Ords &nbsp;·&nbsp; <code>_SKD</code> = Kurta Set</div>
+      <div><code>_DRS</code> = Dress &nbsp;·&nbsp; <code>_KT</code> = Kurta</div>
+      <div><code>_TOP / _SHT</code> = Tops / Shirts</div>
+      <div><code>_SET / CRPSET</code> = Co-Ord set variants</div>
+      <div><code>-L / -XL / -XXL</code> = size variant</div>
+      <div>Trailing <code>-1 / -2</code> = product version</div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="ct">Browse</div>
+    <div class="tab-row" id="pm-tabs">
+      <button class="tab active" onclick="pmTab('all',this)">All</button>
+      <button class="tab" onclick="pmTab('Co-Ords',this)">Co-Ords</button>
+      <button class="tab" onclick="pmTab('Kurta Sets',this)">Kurta Sets</button>
+      <button class="tab" onclick="pmTab('Dresses',this)">Dresses</button>
+    </div>
+    <div class="frow">
+      <input class="search-input" id="pm-search" placeholder="Filter by design or colour…" oninput="renderPM()">
+      <select class="fsel" id="pm-size" onchange="renderPM()"><option value="">All sizes</option><option>XS</option><option>S</option><option>M</option><option>L</option><option>XL</option><option>XXL</option><option>XXXL</option></select>
+    </div>
+    <div class="tw"><table><thead><tr><th>VAN (internal)</th><th>Design code</th><th>Colour</th><th>Size</th><th>Category</th><th>Style ID</th><th>SKU ID</th></tr></thead><tbody id="pm-table"><tr><td colspan="7" class="empty">Upload Listing_IDs.xlsx</td></tr></tbody></table></div>
+    <div id="pm-count" style="padding:7px 0;font-size:11px;color:var(--color-text-secondary);border-top:0.5px solid var(--color-border-tertiary);margin-top:4px"></div>
+  </div>
+</div>
+
+<!-- ── SKU ANALYTICS ── -->
+<div class="sec" id="sec-sku">
+  <div class="sec-header"><div class="sec-title">SKU analytics — with VAN labels</div></div>
+  <div class="frow">
+    <select class="fsel" id="sku-cat" onchange="renderSKU()"><option value="">All categories</option><option>Co-Ords</option><option>Kurta Sets</option><option>Dresses</option><option>Tops</option></select>
+    <select class="fsel" id="sku-sort" onchange="renderSKU()"><option value="rev">By revenue</option><option value="net">By true net</option><option value="orders">By orders</option><option value="retrate">By return rate ↓</option></select>
+  </div>
+  <div class="card"><div class="tw" style="max-height:560px;overflow-y:auto"><table><thead><tr><th>VAN (internal)</th><th>Design</th><th>Size</th><th>Cat</th><th>Fwd</th><th>Ret</th><th>Ret%</th><th>Avg MRP</th><th>Avg sell</th><th>Disc%</th><th>Revenue</th><th>Clawback</th><th>Commission</th><th>Net settled</th></tr></thead><tbody id="sku-tbody"></tbody></table></div></div>
+</div>
+
+<!-- ── RETURNS ── -->
+<div class="sec" id="sec-returns">
+  <div class="sec-header"><div class="sec-title">Returns analysis</div></div>
+  <div class="mg" id="ret-metrics"></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Return rate by category</div><div id="ret-cat-bars"></div></div>
+    <div class="card"><div class="ct">Return rate by size</div><div id="ret-size-bars"></div></div>
+  </div>
+  <div class="card"><div class="ct">Top returned SKUs</div>
+    <div class="tw"><table><thead><tr><th>VAN</th><th>Design</th><th>Size</th><th>Category</th><th>Fwd orders</th><th>Returns</th><th>Return%</th><th>Clawback</th></tr></thead><tbody id="ret-sku-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ── ORDER FLOW ── -->
+<div class="sec" id="sec-operations">
+  <div class="sec-header"><div class="sec-title">Order flow & operations</div></div>
+  <div class="mg" id="ops-metrics"></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Order status funnel</div><div id="ops-funnel"></div></div>
+    <div class="card"><div class="ct">Delivery time distribution (days)</div><div class="cw" style="height:190px"><canvas id="del-chart"></canvas></div></div>
+  </div>
+  <div class="g2">
+    <div class="card"><div class="ct">Return type breakdown</div><div id="ops-ret-type"></div></div>
+    <div class="card"><div class="ct">RTO by category</div><div id="ops-rto-cat"></div></div>
+  </div>
+  <div class="card"><div class="ct">Courier performance</div><div id="ops-courier"></div></div>
+</div>
+
+<!-- ── SETTLEMENT ── -->
+<div class="sec" id="sec-settlement">
+  <div class="sec-header"><div class="sec-title">Settlement details</div></div>
+  <div class="mg" id="sett-metrics"></div>
+  <div class="g2">
+    <div class="card"><div class="ct">All deductions ranked</div><div id="sett-deductions"></div></div>
+    <div class="card"><div class="ct">Zone logistics — forward vs reverse avg</div><div id="sett-zones"></div></div>
+  </div>
+  <div class="card"><div class="ct">Settlement by category</div>
+    <div class="tw"><table><thead><tr><th>Category</th><th>Fwd settled</th><th>Fwd pending</th><th>Ret clawback</th><th>Ret pending</th><th>Net</th><th>Commission</th><th>Fwd logistics</th></tr></thead><tbody id="sett-cat-tbody"></tbody></table></div>
+  </div>
+</div>
+
+<!-- ── GEOGRAPHY ── -->
+<div class="sec" id="sec-geo">
+  <div class="sec-header"><div class="sec-title">Geography</div></div>
+  <div class="g2">
+    <div class="card"><div class="ct">Top states by orders</div><div id="geo-order-bars"></div></div>
+    <div class="card"><div class="ct">Top states by return rate</div><div id="geo-ret-bars"></div></div>
+  </div>
+  <div class="card"><div class="tw"><table><thead><tr><th>State</th><th>Orders</th><th>Returns</th><th>Return%</th><th>Revenue</th><th>AOV</th><th>Share%</th></tr></thead><tbody id="geo-tbody"></tbody></table></div></div>
+</div>
+
+<!-- ── ADS ── -->
+<div class="sec" id="sec-ads">
+  <div class="sec-header"><div><div class="sec-title">Marketing — PLA & PCA</div><div class="sec-sub">April 2026 · BANI_VR_APR26 campaign</div></div></div>
+  <div class="info-box info-box-green">
+    <strong>Good overall performance.</strong> PLA: 10.45x ROAS at 9.6% ACoS. PCA: 2.62x ROAS at 38.1% ACoS (brand awareness channel — 92% view-through revenue).
+  </div>
+  <div class="mg">
+    <div class="mc"><div class="ml">Total ad spend</div><div class="mv dn">₹2,50,320</div></div>
+    <div class="mc"><div class="ml">Total attributed revenue</div><div class="mv up">₹22,22,336</div></div>
+    <div class="mc"><div class="ml">Combined ROAS</div><div class="mv up">8.88x</div></div>
+    <div class="mc"><div class="ml">Combined ACoS</div><div class="mv warn">11.3%</div></div>
+    <div class="mc"><div class="ml">Total impressions</div><div class="mv">71.8L</div></div>
+    <div class="mc"><div class="ml">PLA units sold</div><div class="mv">1,759</div></div>
+    <div class="mc"><div class="ml">Avg CPC (PLA)</div><div class="mv">₹1.60</div></div>
+    <div class="mc"><div class="ml">Ad spend as % of revenue</div><div class="mv warn">5.7%</div></div>
+  </div>
+  <div class="g2">
+    <div class="card card-purple"><div class="ct">PLA — self-managed CPC</div>
+      <div class="pl-row"><span>Spend</span><span class="dn">₹2,00,048</span></div>
+      <div class="pl-row"><span>Attributed revenue</span><span class="up">₹20,90,483</span></div>
+      <div class="pl-row"><span>ROAS</span><span class="up" style="font-weight:500">10.45x</span></div>
+      <div class="pl-row"><span>ACoS</span><span class="up">9.6%</span></div>
+      <div class="pl-row"><span>Impressions</span><span>68.4L</span></div>
+      <div class="pl-row"><span>Clicks</span><span>1,25,199</span></div>
+      <div class="pl-row"><span>CTR</span><span>1.83%</span></div>
+      <div class="pl-row"><span>Avg CPC</span><span>₹1.60</span></div>
+      <div class="pl-row"><span>Units sold (direct)</span><span>1,075</span></div>
+      <div class="pl-row"><span>Units sold (indirect)</span><span class="warn">684</span></div>
+    </div>
+    <div class="card"><div class="ct">PCA — Myntra-managed CPM</div>
+      <div class="pl-row"><span>Spend</span><span class="dn">₹50,272</span></div>
+      <div class="pl-row"><span>Attributed revenue</span><span>₹1,31,853</span></div>
+      <div class="pl-row"><span>ROAS</span><span class="warn" style="font-weight:500">2.62x</span></div>
+      <div class="pl-row"><span>ACoS</span><span class="dn">38.1%</span></div>
+      <div class="pl-row"><span>Impressions</span><span>3.35L</span></div>
+      <div class="pl-row"><span>CTR</span><span class="dn">0.73%</span></div>
+      <div class="pl-row"><span>CPM</span><span>₹150</span></div>
+      <div class="pl-row"><span>View-through revenue</span><span class="up">92%</span></div>
+      <div class="pl-row"><span>PDP views driven</span><span>8,976</span></div>
+      <div class="pl-row"><span>Add to wishlist</span><span>575</span></div>
+    </div>
+  </div>
+  <div class="card"><div class="ct">PLA performance by ad group</div>
+    <div class="tw"><table><thead><tr><th>Ad group</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Avg CPC</th><th>Spend</th><th>Units</th><th>Revenue</th><th>ROAS</th><th>ACoS</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge b-coord">Co-Ords</span></td><td>40.7L</td><td>73,358</td><td>1.80%</td><td>₹1.45</td><td>₹1,06,100</td><td>1,429</td><td class="up">₹15,70,909</td><td class="up" style="font-weight:500">14.81x</td><td class="up">6.8%</td></tr>
+      <tr><td><span class="badge b-kurta">Kurta Sets</span></td><td>16.2L</td><td>32,935</td><td>2.03%</td><td>₹1.73</td><td>₹56,886</td><td>192</td><td>₹3,41,353</td><td>6.00x</td><td class="warn">16.7%</td></tr>
+      <tr><td><span class="badge b-dress">Dresses</span></td><td>11.6L</td><td>18,906</td><td>1.63%</td><td>₹1.96</td><td>₹37,062</td><td>138</td><td>₹1,78,220</td><td class="warn">4.81x</td><td class="dn">20.8%</td></tr>
+    </tbody></table></div>
+  </div>
+</div>
+
+</main>
+</div><!-- /main-layout -->
+</div><!-- /app-shell -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ═══════════════════════════════════════════════
+// BANI WOMEN — MYNTRA BRAND OS
+// All logic: data store, parsers, renderers
+// ═══════════════════════════════════════════════
+
+const DB={sales:[],fwd:[],ret:[],flow:[],fwdU:[],retU:[],nod:[]};
+const CH={};
+let SKU_TO_VAN={}, VAN_LIST=[], pmCat='all';
+const SN={MH:'Maharashtra',UP:'Uttar Pradesh',DL:'Delhi',KA:'Karnataka',HR:'Haryana',GJ:'Gujarat',RJ:'Rajasthan',WB:'West Bengal',PB:'Punjab',TG:'Telangana',MP:'Madhya Pradesh',TN:'Tamil Nadu',AP:'Andhra Pradesh',BR:'Bihar',OD:'Odisha',UK:'Uttarakhand',GA:'Goa'};
+
+// COGS — pre-loaded from your session entries (edit any value live in the table)
+const COGS={
+  'BW6085BLUE':280,'BP10K20':350,'BW10K18':280,'BW8034':380,'BP9003':350,
+  'BW10K20':280,'BW10K40Grey':550,'BP10K12':350,'BW10K12':250,'BP9008':320,
+  'BP9012':350,'BP6085BLUE':280,'BP8051MRN':320,'BP10K18':300,'BP9013':350,
+  'BP8052TEAL':380,'BP10K51':620,'BW10K14':260,'BP10K14':280,'BW6083BLUE':280,
+  'BW7009ROSE':260,'BW8034GREY':380,'BW8058GREY':650,'BP8034':450,'BW9050':380,
+  'BP8034GREY':420,'BP9050':380,'BP7009ROSE':290,'BP9044':380,'BW8052TEAL':300,
+  'BP10K50':600,'BP8034PINK':400,'BP7010BLUE':350,'BW9003':260,'BW9002':320,
+  'BW7079PINK':180,'BW8058MUST':620,'BW7010BLUE':280,'BWW04TOP':160,
+  'BW8001PEACH':280,'BP9002':420,'BW9075':420,'BW9008':380,'BW10K9':260,
+  'BW10K4':300,'BW7008GREY':260,'BW10K96':420,'BW9013':300,
+  'BW10K99GREEN':450,'BW8032MAUVE':220,'BW10K97CORAL':420,
+  'BW8051MRN':320,'BW8034PINK':320,'BP7006BLK':240,'BW10K5':260,
+  'BWR6085BLUE':220,'BW7002BRN':200,'BW10K99BLUE':450,'BW8001GRN':260,
+  'BW8062FUSH':380,'BW7002BEIGE':260,'BP9035':380,'BW10K15':240,
+  'BW10K74':340,'BW9035':320,'BW9004':240,'BW8032GRN':260,'BW8048PINK':300,
+  'BW10K51':520,'BP10K53':620,'BW10K40Mustard':560,'BW9053':340,'BP7008GREY':260,
+  'BW10K16':260,'BW9095':480,'BW9011':300,'BW8051':400,'BW9084':380,'BW9082':400,
+};
+
+// ── HELPERS ──
+function inr(n){return '₹'+Math.round(n).toLocaleString('en-IN');}
+function pct(n){return isNaN(n)||n===null?'—':(Math.round(n*10)/10)+'%';}
+function gc(gm){if(isNaN(gm)||gm===null)return 'var(--color-text-secondary)';if(gm>=30)return '#3b6d11';if(gm>=15)return '#854f0b';return '#a32d2d';}
+function gcls(gm){if(isNaN(gm)||gm===null)return '';if(gm>=30)return 'up';if(gm>=15)return 'warn';return 'dn';}
+function catBadge(c){const m={'Co-Ords':'coord','Dresses':'dress','Kurta Sets':'kurta','Tops':'top','Ethnic Dresses':'dress'};return '<span class="badge b-'+(m[c]||'other')+'">'+c+'</span>';}
+function szBadge(s){const c={XS:'b-s',S:'b-s',M:'b-m',L:'b-l',XL:'b-xl',XXL:'b-xxl'};return s?'<span class="badge '+(c[s]||'b-other')+'">'+s+'</span>':'—';}
+function n_(arr,col){if(!arr||!arr.length)return 0;return arr.reduce((a,r)=>{const v=parseFloat(r[col]);return a+(isNaN(v)?0:v);},0);}
+
+// ── VAN PARSING ──
+const SIZES=['XS','S','M','L','XL','XXL','XXXL','3XL','4XL','5XL','6XL','OS'];
+function getCat(van){const v=(van||'').toUpperCase();if(v.includes('_COD')||v.includes('COORD'))return 'Co-Ords';if(v.includes('_SKD')||v.includes('KASS')||v.includes('_KT'))return 'Kurta Sets';if(v.includes('_DRS')||v.includes('DRSS'))return 'Dresses';if(v.includes('CRPSET')||v.includes('FLSET')||v.includes('_SET')||v.includes('HDDSET'))return 'Co-Ords';if(v.includes('_TOP'))return 'Tops';if(v.includes('_SHT'))return 'Shirts';return 'Other';}
+function parseVan(van){let m=(van||'').match(/^(.+)-(\d+)$/),base=van||'',ver='1';if(m){base=m[1];ver=m[2];}const li=base.lastIndexOf('-');let size='';if(li>-1){const s=base.substring(li+1).toUpperCase();if(SIZES.includes(s)){size=s;base=base.substring(0,li);}}const ui=base.indexOf('_');const design=ui>-1?base.substring(0,ui):base;const color=ui>-1?base.substring(ui+1):'';return{design,color,size,version:ver,cat:getCat(van)};}
+function vanInfo(skuCode){if(!skuCode)return null;const num=parseInt(String(skuCode).replace(/\D/g,''));return SKU_TO_VAN[num]||null;}
+
+// ── DRAG / DROP ──
+function dragOv(e,el){e.preventDefault();el.classList.add('drag');}
+function dragLv(el){el.classList.remove('drag');}
+function dropF(e,fid,el){e.preventDefault();dragLv(el);const dt=new DataTransfer();dt.items.add(e.dataTransfer.files[0]);document.getElementById(fid).files=dt.files;document.getElementById(fid).dispatchEvent(new Event('change'));}
+
+// ── FILE LOADERS ──
+function loadCSV(input,type){
+  const file=input.files[0];if(!file)return;
+  const L={sales:'lbl-sales',flow:'lbl-flow'};
+  if(L[type])document.getElementById(L[type]).textContent='Parsing…';
+  Papa.parse(file,{header:true,skipEmptyLines:true,dynamicTyping:true,complete:function(r){
+    DB[type]=r.data;
+    if(L[type])document.getElementById(L[type]).textContent='✓ '+file.name;
+    document.getElementById('st-'+type).innerHTML='<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> '+r.data.length+' rows</span>';
+    updateUploadSummary();
+  }});
+}
+
+function parseExcelSheet(wb,sheetName){
+  const ws=wb.Sheets[sheetName];if(!ws)return[];
+  const raw=XLSX.utils.sheet_to_json(ws,{header:1,defval:''});
+  let hi=-1;
+  for(let i=0;i<Math.min(raw.length,6);i++){if(raw[i].includes('order_date')&&raw[i].includes('order_release_id')){hi=i;break;}}
+  if(hi<0)return[];
+  const cols=raw[hi];
+  return raw.slice(hi+1).map(row=>{const o={};cols.forEach((c,i)=>{if(c)o[c]=row[i];});return o;}).filter(r=>r.order_release_id);
+}
+
+function normaliseRow(r){
+  const n=v=>parseFloat(v)||0;
+  return{
+    order_release_id:r.order_release_id,
+    sku_code:r.seller_sku_code||r.sku_code,
+    article_type:r.article_type,
+    shipping_state:r.shipping_state,
+    shipment_zone_classification:r.shipment_zone_classification,
+    packing_date:r.packing_date,delivery_date:r.delivery_date,
+    return_date:r.return_date,return_type:r.return_type,
+    mrp:n(r.MRP||r.mrp),
+    customer_paid_amt:n(r.Customer_Paid_Amount||r.customer_paid_amt),
+    total_discount_amount:n(r.Seller_Discount||r.total_discount_amount),
+    platform_discount:n(r.Platform_Discount),
+    total_actual_settlement:n(r.Settled_Amount_Postpaid)+n(r.Settled_Amount_Prepaid)||(n(r.total_actual_settlement)),
+    amount_pending_settlement:n(r.Amount_pending_settlement_Postpaid)+n(r.Amount_pending_settlement_Prepaid)||(n(r.amount_pending_settlement)),
+    total_expected_settlement:n(r.Expected_Settled_Amount_Postpaid)+n(r.Expected_Settled_Amount_Prepaid)||(n(r.total_expected_settlement)),
+    total_commission:n(r.Commission_Amount_incl_GST_Postpaid)+n(r.Commission_Amount_incl_GST_Prepaid)||(n(r.total_commission)),
+    total_logistics_deduction:n(r.Logistics_Cost_Forward_incl_Tax_Postpaid)+n(r.Logistics_Cost_Forward_incl_Tax_Prepaid)||(n(r.total_logistics_deduction)),
+    tcs_amount:n(r.tcs_amount_Postpaid)+n(r.tcs_amount_Prepaid)||(n(r.tcs_amount)),
+    tds_amount:n(r.tds_amount_Postpaid)+n(r.tds_amount_Prepaid)||(n(r.tds_amount)),
+    fixed_fee:n(r.Fixed_Fee_Postpaid)+n(r.Fixed_Fee_Prepaid)||(n(r.fixed_fee)),
+    pick_and_pack_fee:n(r.Pick_and_Pack_Fees_Postpaid)+n(r.Pick_and_Pack_Fees_Prepaid)||(n(r.pick_and_pack_fee)),
+    sjit_incentive:n(r.SJIT_Incentive_Postpaid)+n(r.SJIT_Incentive_Prepaid),
+    commission_discount:n(r.Commission_Discount_Postpaid)+n(r.Commission_Discount_Prepaid),
+  };
+}
+
+function loadSettlement(input){
+  const file=input.files[0];if(!file)return;
+  document.getElementById('lbl-sett').textContent='Parsing…';
+  const isXL=file.name.endsWith('.xlsx')||file.name.endsWith('.xls');
+  if(isXL){
+    const reader=new FileReader();
+    reader.onload=e=>{
+      const wb=XLSX.read(e.target.result,{type:'array'});
+      if(wb.SheetNames.includes('forward_settled')){
+        DB.fwd=parseExcelSheet(wb,'forward_settled').map(r=>normaliseRow(r));
+        DB.ret=parseExcelSheet(wb,'reverse_settled').map(r=>normaliseRow(r));
+        const nodSheet=wb.Sheets['settled_non_order_deduction'];
+        DB.nod=nodSheet?XLSX.utils.sheet_to_json(nodSheet):[];
+      }
+      document.getElementById('lbl-sett').textContent='✓ '+file.name;
+      document.getElementById('st-sett').innerHTML='<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Fwd: '+DB.fwd.length+'</span> <span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Ret: '+DB.ret.length+'</span>'+(DB.nod.length?'<span class="pill pill-info"><i class="ti ti-check" style="font-size:10px"></i> NOD: '+DB.nod.length+'</span>':'');
+      updateUploadSummary();
+    };
+    reader.readAsArrayBuffer(file);
+  } else {
+    Papa.parse(file,{header:true,skipEmptyLines:true,dynamicTyping:true,complete:r=>{DB.fwd=r.data;document.getElementById('lbl-sett').textContent='✓ '+file.name;document.getElementById('st-sett').innerHTML='<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> '+r.data.length+' rows</span>';updateUploadSummary();}});
+  }
+}
+
+function loadUnsettled(input){
+  const file=input.files[0];if(!file)return;
+  document.getElementById('lbl-uns').textContent='Parsing…';
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const wb=XLSX.read(e.target.result,{type:'array'});
+    if(wb.SheetNames.includes('forward_unsettled')){
+      DB.fwdU=parseExcelSheet(wb,'forward_unsettled').map(r=>normaliseRow(r));
+      DB.retU=parseExcelSheet(wb,'reverse_unsettled').map(r=>normaliseRow(r));
+    }
+    document.getElementById('lbl-uns').textContent='✓ '+file.name;
+    document.getElementById('st-uns').innerHTML='<span class="pill pill-warn"><i class="ti ti-clock" style="font-size:10px"></i> Fwd uns: '+DB.fwdU.length+'</span> <span class="pill pill-warn"><i class="ti ti-clock" style="font-size:10px"></i> Ret uns: '+DB.retU.length+'</span>';
+    updateUploadSummary();
+  };
+  reader.readAsArrayBuffer(file);
+}
+
+function loadVAN(input){
+  const file=input.files[0];if(!file)return;
+  document.getElementById('lbl-van').textContent='Parsing…';
+  const isXL=file.name.endsWith('.xlsx');
+  if(isXL){
+    const reader=new FileReader();
+    reader.onload=e=>{const wb=XLSX.read(e.target.result,{type:'array'});buildVANMap(XLSX.utils.sheet_to_json(wb.Sheets[wb.SheetNames[0]]));document.getElementById('lbl-van').textContent='✓ '+file.name;document.getElementById('st-van').innerHTML='<span class="pill pill-info"><i class="ti ti-check" style="font-size:10px"></i> '+VAN_LIST.length+' VANs</span>';updateUploadSummary();};
+    reader.readAsArrayBuffer(file);
+  } else {
+    Papa.parse(file,{header:true,skipEmptyLines:true,dynamicTyping:true,complete:r=>{buildVANMap(r.data);document.getElementById('lbl-van').textContent='✓ '+file.name;document.getElementById('st-van').innerHTML='<span class="pill pill-info"><i class="ti ti-check" style="font-size:10px"></i> '+VAN_LIST.length+' VANs</span>';updateUploadSummary();}});
+  }
+}
+
+function buildVANMap(rows){
+  SKU_TO_VAN={};VAN_LIST=[];
+  rows.forEach(r=>{
+    const van=r.van||r.VAN||'';const sku_id=parseInt(r['sku id']||r['sku_id']||r['SKU ID']||0);const style_id=parseInt(r['style id']||r['style_id']||0);
+    if(!van)return;
+    const p=parseVan(van);
+    const entry={van,design:p.design,color:p.color,size:p.size,cat:p.cat,style_id,sku_id};
+    VAN_LIST.push(entry);
+    if(sku_id)SKU_TO_VAN[sku_id]=entry;
+  });
+  document.getElementById('pm-sub').textContent=VAN_LIST.length+' SKUs · '+new Set(VAN_LIST.map(v=>v.style_id)).size+' styles';
+  renderPMMetrics();renderPM();
+}
+
+function updateUploadSummary(){
+  const p=[];
+  if(DB.sales.length)p.push('<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Sales: '+DB.sales.length+'</span>');
+  if(DB.fwd.length)p.push('<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Fwd settled: '+DB.fwd.length+'</span>');
+  if(DB.ret.length)p.push('<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Ret settled: '+DB.ret.length+'</span>');
+  if(DB.fwdU.length)p.push('<span class="pill pill-warn"><i class="ti ti-clock" style="font-size:10px"></i> Fwd uns: '+DB.fwdU.length+'</span>');
+  if(DB.retU.length)p.push('<span class="pill pill-warn"><i class="ti ti-clock" style="font-size:10px"></i> Ret uns: '+DB.retU.length+'</span>');
+  if(DB.nod.length)p.push('<span class="pill pill-info"><i class="ti ti-check" style="font-size:10px"></i> NOD: '+DB.nod.length+'</span>');
+  if(DB.flow.length)p.push('<span class="pill pill-ok"><i class="ti ti-check" style="font-size:10px"></i> Flow: '+DB.flow.length+'</span>');
+  if(VAN_LIST.length)p.push('<span class="pill pill-info"><i class="ti ti-sitemap" style="font-size:10px"></i> VANs: '+VAN_LIST.length+'</span>');
+  if(p.length){document.getElementById('upload-summary').style.display='block';document.getElementById('upload-pills').innerHTML=p.join('');}
+}
+
+// ── NAVIGATION ──
+function go(id,btn){
+  document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+  document.querySelectorAll('.nb').forEach(b=>b.classList.remove('active'));
+  document.getElementById('sec-'+id).classList.add('active');
+  btn.classList.add('active');
+  const fn={dashboard:renderDashboard,pl:renderPL,cashflow:renderCashflow,nod:renderNOD,profitability:()=>{renderProfMetrics();renderProf();},products:()=>{renderPMMetrics();renderPM();},sku:renderSKU,returns:renderReturns,operations:renderOperations,settlement:renderSettlement,geo:renderGeo};
+  if(fn[id])fn[id]();
+}
+function goId(id){const b=Array.from(document.querySelectorAll('.nb')).find(b=>b.getAttribute('onclick')&&b.getAttribute('onclick').includes("'"+id+"'"));if(b)go(id,b);}
+function cfTab(tab,btn){document.querySelectorAll('#sec-cashflow .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('cf-fwd-section').style.display=tab==='fwd'?'block':'none';document.getElementById('cf-ret-section').style.display=tab==='ret'?'block':'none';if(tab==='ret')renderCFRet();}
+function profTab(tab,btn){document.querySelectorAll('#sec-profitability .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');document.getElementById('prof-table-sec').style.display=tab==='table'?'block':'none';document.getElementById('prof-wf-sec').style.display=tab==='waterfall'?'block':'none';document.getElementById('prof-analysis-sec').style.display=tab==='analysis'?'block':'none';if(tab==='waterfall'){const sel=document.getElementById('wf-design');sel.innerHTML='<option value="">Select a design…</option>';PROF_DATA.forEach(d=>sel.insertAdjacentHTML('beforeend',`<option value="${d.d}">${d.d} (${d.fo} orders · ${Math.round(d.ro/d.fo*100)}% ret)</option>`));renderWF();}if(tab==='analysis')renderProfAnalysis();}
+function pmTab(cat,btn){pmCat=cat;document.querySelectorAll('#pm-tabs .tab').forEach(b=>b.classList.remove('active'));btn.classList.add('active');renderPM();}
+
+// ── DASHBOARD ──
+function renderDashboard(){
+  const fwd=DB.fwd,ret=DB.ret,fwdU=DB.fwdU,retU=DB.retU,flow=DB.flow;
+  if(!fwd.length){document.getElementById('db-metrics').innerHTML='<div class="empty" style="grid-column:1/-1">Upload settlement reports to see metrics</div>';return;}
+  const fwdRev=n_(fwd,'customer_paid_amt'),fwdMRP=n_(fwd,'mrp'),fwdDisc=n_(fwd,'total_discount_amount');
+  const fwdComm=Math.abs(n_(fwd,'total_commission')),fwdLog=n_(fwd,'total_logistics_deduction');
+  const fwdTCS=n_(fwd,'tcs_amount')+n_(fwd,'tds_amount');
+  const fwdSettled=n_(fwd,'total_actual_settlement'),retClawback=Math.abs(n_(ret,'total_actual_settlement'));
+  const sjit=n_(fwd,'sjit_incentive'),commDisc=n_(fwd,'commission_discount');
+  const nodNet=DB.nod.reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  const trueNet=fwdSettled-retClawback+sjit+commDisc+nodNet;
+  const pendFwd=n_(fwdU,'amount_pending_settlement'),pendRet=Math.abs(n_(retU,'amount_pending_settlement'));
+  const netCash=pendFwd-pendRet;
+  const retRate=fwd.length>0?ret.length/fwd.length*100:0;
+  const rto=flow.filter(r=>r.return_type==='release_rto_refund').length;
+  const rtoRate=flow.length>0?rto/flow.length*100:0;
+  const dates=fwd.map(r=>(r.packing_date||'').toString().substring(0,10)).filter(Boolean);
+  const minD=dates.length?dates.reduce((a,b)=>a<b?a:b):'';
+  const maxD=dates.length?dates.reduce((a,b)=>a>b?a:b):'';
+  document.getElementById('db-period').textContent=minD&&maxD?minD+' → '+maxD:'';
+  if(netCash>0||pendRet>0){
+    document.getElementById('db-cashbox').innerHTML=`<div class="cash-box ${netCash>0?'card-green':'card-red'} card" style="margin-bottom:1rem"><div><div style="font-size:13px;font-weight:500;color:${netCash>0?'#3b6d11':'#a32d2d'}">Net cash Myntra owes you: ${inr(netCash)}</div><div style="font-size:11px;margin-top:4px;color:var(--color-text-secondary)"><span style="margin-right:12px">↑ Owed to you: <strong style="color:#3b6d11">${inr(pendFwd)}</strong></span><span>↓ You owe: <strong style="color:#a32d2d">${inr(pendRet)}</strong></span></div></div><button class="btn-secondary" style="font-size:11px" onclick="goId('cashflow')">View details →</button></div>`;
+  }
+  document.getElementById('db-metrics').innerHTML=[
+    ['Fwd orders',fwd.length,''],['Return rate',pct(retRate),retRate>20?'dn':retRate>12?'warn':'up'],
+    ['RTO rate',pct(rtoRate),rtoRate>8?'dn':'warn'],['Customer paid',inr(fwdRev),''],
+    ['Fwd net settled',inr(fwdSettled),'up'],['Returns clawback','-'+inr(retClawback),'dn'],
+    ['SJIT incentive',inr(sjit),'up'],['Comm discount',inr(commDisc),'up'],
+    ['NOD net',inr(nodNet),nodNet>0?'up':'dn'],['TRUE net settled',inr(trueNet),trueNet>0?'up':'dn'],
+    ['True margin',pct(fwdRev>0?trueNet/fwdRev*100:0),(trueNet/(fwdRev||1)*100)>20?'up':'warn'],
+    ['Net cash pending',inr(netCash),netCash>0?'up':'dn'],
+  ].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const catM={};fwd.forEach(r=>{const vi=vanInfo(r.sku_code);const cat=vi?vi.cat:(r.article_type||'Other');if(!catM[cat])catM[cat]=0;catM[cat]+=r.customer_paid_amt||0;});
+  const catS=Object.entries(catM).sort((a,b)=>b[1]-a[1]);const maxC=catS[0]?.[1]||1;
+  const cc=['#7f77dd','#d4537e','#1d9e75','#ef9f27','#378add','#e24b4a','#888780'];
+  document.getElementById('cat-bars').innerHTML=catS.map(([c,v],i)=>`<div class="br"><div class="bl">${catBadge(c)}</div><div class="bt"><div class="bf" style="width:${(v/maxC*100).toFixed(0)}%;background:${cc[i%cc.length]}"></div></div><div class="bv">${inr(v)}</div></div>`).join('');
+  const platDisc=n_(fwd,'platform_discount');
+  const retRevLog=Math.abs(n_(ret,'total_logistics_deduction'));
+  const flows=[{l:'Discount (you)',v:fwdDisc-platDisc,c:'#e24b4a'},{l:'Platform discount',v:platDisc,c:'#d4537e'},{l:'Commission',v:fwdComm,c:'#d85a30'},{l:'Logistics (fwd)',v:fwdLog,c:'#ef9f27'},{l:'TCS+TDS',v:fwdTCS,c:'#888780'},{l:'Ret clawback',v:retClawback,c:'#a32d2d'},{l:'Ret logistics',v:retRevLog,c:'#d4537e'},{l:'Net received',v:Math.max(trueNet,0),c:'#1d9e75'}];
+  document.getElementById('money-flow').innerHTML=flows.map(f=>`<div class="br"><div class="bl">${f.l}</div><div class="bt"><div class="bf" style="width:${Math.min(fwdMRP>0?Math.abs(f.v)/fwdMRP*100:0,100).toFixed(0)}%;background:${f.c}"></div></div><div class="bv">${fwdMRP>0?(Math.abs(f.v)/fwdMRP*100).toFixed(1):0}%</div></div>`).join('');
+  const dayFwd={},dayRet={};
+  fwd.forEach(r=>{const d=(r.packing_date||'').toString().substring(0,10);if(d)dayFwd[d]=(dayFwd[d]||0)+1;});
+  ret.forEach(r=>{const d=(r.return_date||'').toString().substring(0,10);if(d)dayRet[d]=(dayRet[d]||0)+1;});
+  const allDays=[...new Set([...Object.keys(dayFwd),...Object.keys(dayRet)])].sort();
+  if(CH.trend)CH.trend.destroy();
+  CH.trend=new Chart(document.getElementById('trend-chart'),{type:'line',data:{labels:allDays.map(d=>d.substring(5)),datasets:[{label:'Forward',data:allDays.map(d=>dayFwd[d]||0),borderColor:'#7f77dd',backgroundColor:'rgba(127,119,221,0.07)',fill:true,tension:0.3,pointRadius:2},{label:'Returns',data:allDays.map(d=>dayRet[d]||0),borderColor:'#e24b4a',backgroundColor:'rgba(226,75,74,0.06)',fill:true,tension:0.3,pointRadius:2}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{font:{size:10}},grid:{color:'rgba(128,128,128,0.07)'}},x:{grid:{display:false},ticks:{maxTicksLimit:15,font:{size:10}}}}}});
+}
+
+// ── P&L ──
+function renderPL(){
+  const fwd=DB.fwd,ret=DB.ret,fwdU=DB.fwdU,retU=DB.retU;
+  if(!fwd.length){document.getElementById('pl-rows').innerHTML='<div class="empty">Upload settlement report</div>';return;}
+  const fwdMRP=n_(fwd,'mrp'),fwdDisc=n_(fwd,'total_discount_amount'),fwdRev=n_(fwd,'customer_paid_amt');
+  const platDisc=n_(fwd,'platform_discount'),sellerDisc=fwdDisc-platDisc;
+  const fwdComm=Math.abs(n_(fwd,'total_commission')),fwdLog=n_(fwd,'total_logistics_deduction');
+  const fixedFee=n_(fwd,'fixed_fee'),pickPack=n_(fwd,'pick_and_pack_fee');
+  const fwdTCS=n_(fwd,'tcs_amount'),fwdTDS=n_(fwd,'tds_amount');
+  const fwdSettled=n_(fwd,'total_actual_settlement');
+  const retClawback=Math.abs(n_(ret,'total_actual_settlement'));
+  const retRevLog=n_(ret,'total_logistics_deduction'),retCommCredit=n_(ret,'total_commission');
+  const sjit=n_(fwd,'sjit_incentive'),commDisc=n_(fwd,'commission_discount');
+  const nodCredits=DB.nod.filter(r=>r.Settlement_Type==='credit').reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  const nodDebits=DB.nod.filter(r=>r.Settlement_Type==='debit').reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  const nodNet=nodCredits+nodDebits;
+  const pendFwd=n_(fwdU,'amount_pending_settlement'),pendRet=Math.abs(n_(retU,'amount_pending_settlement'));
+  const trueNet=fwdSettled-retClawback+sjit+commDisc+nodNet;
+  const trueNetFull=trueNet+pendFwd-pendRet;
+  const commPct=fwdRev>0?fwdComm/fwdRev*100:0;
+  const rows=[['Gross MRP value',fwdMRP,''],['Less: Seller discount (you funded)',-(sellerDisc),'dn'],['Less: Platform discount (Myntra funded)',-(platDisc),'dn'],['= Customer paid',fwdRev,''],
+    [null,null,'sep'],['Less: Commission (avg '+pct(commPct)+')',-(fwdComm),'dn'],['Less: Fixed fee',-(fixedFee),'dn'],['Less: Pick & pack fee',-(pickPack),'dn'],['Less: Logistics',-(fwdLog),'dn'],['Less: TCS',-(fwdTCS),'dn'],['Less: TDS',-(fwdTDS),'dn'],
+    ['Add: SJIT incentive',sjit,'up'],['Add: Commission discount / rebate',commDisc,'up'],['= Forward net settled',fwdSettled,'up'],
+    [null,null,'sep'],['Less: Returns clawback',-(retClawback),'dn'],['Less: Reverse logistics',-(retRevLog),'dn'],['Add: Commission credit on returns',retCommCredit,'up'],
+    [null,null,'sep'],['NOD credits (SPF + adjustments)',nodCredits,'up'],['NOD debits (platform charges)',nodDebits,'dn'],
+    [null,null,'sep'],['Add: Fwd pending (receivable)',pendFwd,'warn'],['Less: Ret pending clawback',-(pendRet),'dn']];
+  document.getElementById('pl-rows').innerHTML=rows.map(([l,v,c])=>{
+    if(c==='sep')return '<hr class="sep">';
+    return `<div class="pl-row"><span style="color:${v&&v<0?'var(--color-text-secondary)':'var(--color-text-primary)'}">${l}</span><span class="${c==='warn'?'warn':c}" style="font-weight:${v===fwdRev||v===fwdSettled?500:400}">${v<0?'-'+inr(-v):inr(v)}</span></div>`;
+  }).join('')+`<div class="pl-tot"><span>TRUE net (settled)</span><span style="color:${trueNet>=0?'#3b6d11':'#a32d2d'}">${inr(trueNet)} (${pct(fwdRev>0?trueNet/fwdRev*100:NaN)})</span></div><div style="display:flex;justify-content:space-between;font-size:12px;padding:5px 0;color:#854f0b"><span>True net incl. all pending</span><span>${inr(trueNetFull)}</span></div>`;
+  const wfL=['Cust paid','Comm','Fees','TCS+TDS','SJIT+rebate','Fwd settled','Clawback','Rev log','NOD','Pending','TRUE net'];
+  const wfV=[fwdRev,fwdComm,fixedFee+pickPack+fwdLog,fwdTCS+fwdTDS,-(sjit+commDisc),fwdSettled,retClawback,retRevLog,-(nodNet),pendFwd-pendRet,trueNetFull].map(Math.round);
+  const wfC=['#1d9e75','#e24b4a','#d85a30','#888780','#3b6d11','#7f77dd','#a32d2d','#d4537e',nodNet>=0?'#3b6d11':'#e24b4a','#ef9f27',trueNetFull>=0?'#1d9e75':'#a32d2d'];
+  if(CH.wf)CH.wf.destroy();
+  CH.wf=new Chart(document.getElementById('wf-chart'),{type:'bar',data:{labels:wfL,datasets:[{data:wfV,backgroundColor:wfC,borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{callback:v=>'₹'+(v/100000).toFixed(1)+'L',font:{size:9}},grid:{color:'rgba(128,128,128,0.07)'}},x:{grid:{display:false},ticks:{font:{size:9},maxRotation:40}}}}});
+  const catFwd={},catRet={};
+  fwd.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');if(!catFwd[c])catFwd[c]={orders:0,rev:0,comm:0,log:0,tcs:0,settled:0};catFwd[c].orders++;catFwd[c].rev+=r.customer_paid_amt||0;catFwd[c].comm+=Math.abs(r.total_commission||0);catFwd[c].log+=r.total_logistics_deduction||0;catFwd[c].tcs+=(r.tcs_amount||0)+(r.tds_amount||0);catFwd[c].settled+=r.total_actual_settlement||0;});
+  ret.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');if(!catRet[c])catRet[c]={orders:0,clawback:0};catRet[c].orders++;catRet[c].clawback+=Math.abs(r.total_actual_settlement||0);});
+  document.getElementById('pl-cat').innerHTML=Object.entries(catFwd).sort((a,b)=>b[1].rev-a[1].rev).map(([cat,d])=>{const rd=catRet[cat]||{orders:0,clawback:0};const rr=d.orders>0?rd.orders/d.orders*100:0;const trN=d.settled-rd.clawback;const trP=d.rev>0?trN/d.rev*100:0;return `<tr><td>${catBadge(cat)}</td><td>${d.orders}</td><td class="dn">${rd.orders}</td><td class="${rr>20?'dn':'warn'}">${pct(rr)}</td><td>${inr(d.rev)}</td><td class="dn">${inr(rd.clawback)}</td><td class="dn">${inr(d.comm)}</td><td class="dn">${inr(d.log)}</td><td class="dn">${inr(d.tcs)}</td><td class="${trN>0?'up':'dn'}">${inr(trN)}</td><td class="${gcls(trP)}">${pct(trP)}</td></tr>`;}).join('');
+}
+
+// ── CASH FLOW ──
+function renderCashflow(){
+  const fwdU=DB.fwdU,retU=DB.retU;
+  const pendFwd=n_(fwdU,'amount_pending_settlement'),pendRet=Math.abs(n_(retU,'amount_pending_settlement'));
+  const net=pendFwd-pendRet;
+  document.getElementById('cf-summary').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:1rem;margin-bottom:1rem">
+    <div class="card card-green"><div class="ml">Myntra owes you (fwd)</div><div class="mv up">${inr(pendFwd)}</div><div style="font-size:11px;color:var(--color-text-success);margin-top:3px">${fwdU.length} orders</div></div>
+    <div class="card card-red"><div class="ml">You owe Myntra (ret)</div><div class="mv dn">${inr(pendRet)}</div><div style="font-size:11px;color:var(--color-text-danger);margin-top:3px">${retU.length} returns</div></div>
+    <div class="card ${net>0?'card-green':'card-red'}"><div class="ml">Net cash receivable</div><div class="mv ${net>0?'up':'dn'}">${inr(net)}</div></div>
+  </div>`;
+  const sjitU=n_(fwdU,'sjit_incentive'),commDiscU=n_(fwdU,'commission_discount');
+  document.getElementById('cf-fwd-metrics').innerHTML=[['Orders',fwdU.length,''],['Customer paid',inr(n_(fwdU,'customer_paid_amt')),''],['Expected',inr(n_(fwdU,'total_expected_settlement')),''],['PENDING',inr(pendFwd),'dn'],['SJIT incentive due',inr(sjitU),'up'],['Comm discount due',inr(commDiscU),'up']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  renderCFTable();
+}
+
+function renderCFTable(){
+  const fwdU=DB.fwdU;if(!fwdU.length){document.getElementById('cf-table').innerHTML='<tr><td colspan="9" class="empty">Upload unsettled report</td></tr>';return;}
+  const catF=document.getElementById('cf-cat-f')?.value||'';
+  const zoneF=document.getElementById('cf-zone-f')?.value||'';
+  const today=Date.now();
+  let rows=fwdU.filter(r=>{const vi=vanInfo(r.sku_code);const cat=vi?vi.cat:(r.article_type||'');if(catF&&cat!==catF)return false;if(zoneF&&(r.shipment_zone_classification||'')!==zoneF)return false;return true;}).sort((a,b)=>(b.amount_pending_settlement||0)-(a.amount_pending_settlement||0));
+  const total=rows.reduce((a,r)=>a+(r.amount_pending_settlement||0),0);
+  document.getElementById('cf-table').innerHTML=rows.slice(0,60).map(r=>{
+    const vi=vanInfo(r.sku_code);const dateStr=(r.order_date||r.packing_date||'').toString().substring(0,10);
+    const age=dateStr?Math.floor((today-new Date(dateStr).getTime())/86400000):null;
+    const ac=age===null?'':age<=7?'#3b6d11':age<=21?'#854f0b':'#a32d2d';
+    return `<tr><td style="font-family:var(--font-mono);font-size:10px">${vi?vi.van:(r.sku_code||'—')}</td><td>${vi?catBadge(vi.cat):(r.article_type||'—')}</td><td style="font-size:11px">${dateStr}</td><td>${age!==null?`<span style="color:${ac};font-size:11px;font-weight:500">${age}d</span>`:'—'}</td><td>${inr(r.customer_paid_amt||0)}</td><td class="up">${inr(r.sjit_incentive||0)}</td><td>${inr(r.total_expected_settlement||0)}</td><td class="dn" style="font-weight:500">${inr(r.amount_pending_settlement||0)}</td><td style="font-size:11px">${r.shipment_zone_classification||'—'}</td></tr>`;
+  }).join('');
+  document.getElementById('cf-total').innerHTML=`<span>${Math.min(rows.length,60)} of ${rows.length} orders</span><span class="dn">Total pending: ${inr(total)}</span>`;
+}
+
+function renderCFRet(){
+  const retU=DB.retU;
+  document.getElementById('cf-ret-metrics').innerHTML=[['Returns',retU.length,'warn'],['Pending clawback',inr(Math.abs(n_(retU,'amount_pending_settlement'))),'warn'],['Refunds',retU.filter(r=>r.return_type==='return_refund').length,''],['Exchanges',retU.filter(r=>r.return_type==='exchange').length,'']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const today=Date.now();const total=Math.abs(n_(retU,'amount_pending_settlement'));
+  document.getElementById('cf-ret-table').innerHTML=retU.sort((a,b)=>Math.abs(b.amount_pending_settlement||0)-Math.abs(a.amount_pending_settlement||0)).slice(0,50).map(r=>{
+    const vi=vanInfo(r.sku_code);const dateStr=(r.return_date||'').toString().substring(0,10);
+    const age=dateStr?Math.floor((today-new Date(dateStr).getTime())/86400000):null;
+    const isLeg=r.return_date&&r.return_date.toString()<'2026';
+    return `<tr><td style="font-family:var(--font-mono);font-size:10px">${vi?vi.van:(r.sku_code||'—')}</td><td>${vi?catBadge(vi.cat):(r.article_type||'—')}</td><td><span class="badge ${r.return_type==='exchange'?'b-top':'b-dress'}">${(r.return_type||'').replace('_',' ')}</span></td><td style="font-size:11px">${dateStr}${isLeg?' <span style="color:var(--color-text-tertiary);font-size:10px">(legacy)</span>':''}</td><td style="font-size:11px">${age!==null?age+'d':'—'}</td><td>${inr(r.customer_paid_amt||0)}</td><td class="warn" style="font-weight:500">${inr(Math.abs(r.amount_pending_settlement||0))}</td><td style="font-size:11px">${r.shipment_zone_classification||'—'}</td></tr>`;
+  }).join('');
+  document.getElementById('cf-ret-total').innerHTML=`<span>${Math.min(retU.length,50)} of ${retU.length}</span><span class="warn">Total pending clawback: ${inr(total)}</span>`;
+}
+
+// ── NOD ──
+function renderNOD(){
+  const nod=DB.nod;
+  if(!nod.length){document.getElementById('nod-metrics').innerHTML='<div class="empty" style="grid-column:1/-1">Upload new Excel settlement file to see NOD data</div>';return;}
+  const credits=nod.filter(r=>r.Settlement_Type==='credit');const debits=nod.filter(r=>r.Settlement_Type==='debit');
+  const totC=credits.reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  const totD=debits.reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  document.getElementById('nod-metrics').innerHTML=[['Transactions',nod.length,''],['Credits (SPF + adj)',totC?inr(totC):'—','up'],['Debits (platform)',Math.abs(totD)?inr(Math.abs(totD)):'—','dn'],['Net NOD',inr(totC+totD),totC+totD>0?'up':'dn']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const cG={};credits.forEach(r=>{const d=r.Settlement_Description||'Other';cG[d]=(cG[d]||0)+(parseFloat(r.Settlement_Amount)||0);});
+  document.getElementById('nod-credits').innerHTML=Object.entries(cG).sort((a,b)=>b[1]-a[1]).map(([d,v])=>`<div class="pl-row"><span style="font-size:11px">${d}</span><span class="up" style="font-weight:500">${inr(v)}</span></div>`).join('')+`<div class="pl-tot"><span>Total credits</span><span class="up">${inr(totC)}</span></div>`;
+  const dG={};debits.forEach(r=>{const d=r.Settlement_Description||'Other';dG[d]=(dG[d]||0)+(parseFloat(r.Settlement_Amount)||0);});
+  document.getElementById('nod-debits').innerHTML=Object.entries(dG).sort((a,b)=>a[1]-b[1]).map(([d,v])=>`<div class="pl-row"><span style="font-size:11px">${d}</span><span class="dn" style="font-weight:500">${inr(v)}</span></div>`).join('')+`<div class="pl-tot"><span>Total debits</span><span class="dn">${inr(totD)}</span></div>`;
+  document.getElementById('nod-table').innerHTML=nod.map(r=>`<tr><td><span class="badge ${r.Settlement_Type==='credit'?'b-kurta':'b-dress'}">${r.Settlement_Type}</span></td><td style="font-weight:500;color:${r.Settlement_Type==='credit'?'#3b6d11':'#a32d2d'}">${inr(Math.abs(parseFloat(r.Settlement_Amount)||0))}</td><td style="font-size:11px">${r.Settlement_Description}</td></tr>`).join('');
+}
+
+// ── TRUE PROFITABILITY ──
+// Per-design economics: true_net = (fwd_settled - ret_clawback - ret_rev_log + ret_comm_credit) / fwd_orders
+const PROF_DATA=[
+  {d:'BW6085BLUE',cat:'Dresses',fo:374,ro:107,sell:939,fwd_s:691,ret_cost:275},
+  {d:'BP10K20',cat:'Co-Ords',fo:289,ro:128,sell:1041,fwd_s:778,ret_cost:454},
+  {d:'BW10K18',cat:'Co-Ords',fo:255,ro:84,sell:853,fwd_s:640,ret_cost:305},
+  {d:'BW8034',cat:'Co-Ords',fo:210,ro:93,sell:1277,fwd_s:923,ret_cost:529},
+  {d:'BP9003',cat:'Co-Ords',fo:183,ro:81,sell:1130,fwd_s:825,ret_cost:471},
+  {d:'BW10K20',cat:'Co-Ords',fo:165,ro:58,sell:873,fwd_s:651,ret_cost:351},
+  {d:'BW10K40Grey',cat:'Kurta Sets',fo:122,ro:64,sell:1839,fwd_s:1410,ret_cost:890},
+  {d:'BP10K12',cat:'Co-Ords',fo:119,ro:46,sell:1121,fwd_s:805,ret_cost:410},
+  {d:'BW10K12',cat:'Co-Ords',fo:114,ro:40,sell:768,fwd_s:571,ret_cost:290},
+  {d:'BP9008',cat:'Co-Ords',fo:93,ro:40,sell:1024,fwd_s:774,ret_cost:431},
+  {d:'BP9012',cat:'Co-Ords',fo:89,ro:49,sell:1202,fwd_s:871,ret_cost:629},
+  {d:'BP6085BLUE',cat:'Dresses',fo:81,ro:24,sell:920,fwd_s:688,ret_cost:301},
+  {d:'BP8051MRN',cat:'Co-Ords',fo:78,ro:30,sell:1023,fwd_s:777,ret_cost:394},
+  {d:'BP10K18',cat:'Co-Ords',fo:67,ro:26,sell:917,fwd_s:695,ret_cost:360},
+  {d:'BP9013',cat:'Co-Ords',fo:61,ro:15,sell:1121,fwd_s:856,ret_cost:272},
+  {d:'BP8052TEAL',cat:'Co-Ords',fo:60,ro:27,sell:1240,fwd_s:930,ret_cost:537},
+  {d:'BP10K51',cat:'Kurta Sets',fo:58,ro:19,sell:2070,fwd_s:1591,ret_cost:612},
+  {d:'BW10K14',cat:'Co-Ords',fo:57,ro:23,sell:908,fwd_s:685,ret_cost:382},
+  {d:'BP10K14',cat:'Co-Ords',fo:52,ro:22,sell:882,fwd_s:654,ret_cost:392},
+  {d:'BW6083BLUE',cat:'Dresses',fo:51,ro:20,sell:1035,fwd_s:778,ret_cost:382},
+  {d:'BW7009ROSE',cat:'Co-Ords',fo:47,ro:14,sell:824,fwd_s:618,ret_cost:350},
+  {d:'BW8034GREY',cat:'Co-Ords',fo:42,ro:16,sell:1218,fwd_s:890,ret_cost:671},
+  {d:'BW8058GREY',cat:'Kurta Sets',fo:40,ro:22,sell:2178,fwd_s:1738,ret_cost:1348},
+  {d:'BP8034',cat:'Co-Ords',fo:40,ro:18,sell:1644,fwd_s:1261,ret_cost:476},
+  {d:'BW9050',cat:'Co-Ords',fo:39,ro:17,sell:1314,fwd_s:968,ret_cost:536},
+  {d:'BP8034GREY',cat:'Co-Ords',fo:37,ro:13,sell:1462,fwd_s:1089,ret_cost:582},
+  {d:'BP9050',cat:'Co-Ords',fo:34,ro:16,sell:1306,fwd_s:950,ret_cost:700},
+  {d:'BP7009ROSE',cat:'Co-Ords',fo:32,ro:10,sell:962,fwd_s:736,ret_cost:470},
+  {d:'BP9044',cat:'Kurta Sets',fo:30,ro:12,sell:1138,fwd_s:840,ret_cost:384},
+  {d:'BW8052TEAL',cat:'Co-Ords',fo:29,ro:11,sell:954,fwd_s:721,ret_cost:371},
+  {d:'BP10K50',cat:'Kurta Sets',fo:29,ro:10,sell:2140,fwd_s:1645,ret_cost:1015},
+  {d:'BP8034PINK',cat:'Co-Ords',fo:28,ro:11,sell:1263,fwd_s:933,ret_cost:321},
+  {d:'BP7010BLUE',cat:'Co-Ords',fo:26,ro:9,sell:1325,fwd_s:994,ret_cost:749},
+  {d:'BW9003',cat:'Co-Ords',fo:23,ro:8,sell:866,fwd_s:643,ret_cost:461},
+  {d:'BW9002',cat:'Co-Ords',fo:23,ro:9,sell:1078,fwd_s:815,ret_cost:520},
+  {d:'BW7079PINK',cat:'Dresses',fo:23,ro:7,sell:499,fwd_s:356,ret_cost:148},
+  {d:'BW8058MUST',cat:'Kurta Sets',fo:21,ro:10,sell:2035,fwd_s:1657,ret_cost:1060},
+  {d:'BW7010BLUE',cat:'Co-Ords',fo:21,ro:7,sell:939,fwd_s:716,ret_cost:326},
+  {d:'BWW04TOP',cat:'Tops',fo:20,ro:5,sell:557,fwd_s:396,ret_cost:251},
+  {d:'BW8001PEACH',cat:'Co-Ords',fo:19,ro:7,sell:838,fwd_s:627,ret_cost:230},
+  {d:'BP9002',cat:'Co-Ords',fo:18,ro:7,sell:1517,fwd_s:1142,ret_cost:746},
+  {d:'BW9075',cat:'Kurta Sets',fo:18,ro:6,sell:1450,fwd_s:1064,ret_cost:461},
+  {d:'BW9008',cat:'Co-Ords',fo:18,ro:7,sell:1359,fwd_s:1011,ret_cost:509},
+  {d:'BW10K9',cat:'Dresses',fo:17,ro:6,sell:843,fwd_s:617,ret_cost:377},
+  {d:'BW10K4',cat:'Co-Ords',fo:16,ro:5,sell:1040,fwd_s:784,ret_cost:194},
+  {d:'BW7008GREY',cat:'Co-Ords',fo:16,ro:5,sell:869,fwd_s:655,ret_cost:310},
+  {d:'BW10K96',cat:'Co-Ords',fo:16,ro:6,sell:1528,fwd_s:1154,ret_cost:554},
+  {d:'BW9013',cat:'Co-Ords',fo:16,ro:6,sell:1144,fwd_s:834,ret_cost:556},
+  {d:'BW10K99GREEN',cat:'Dresses',fo:15,ro:5,sell:1596,fwd_s:1215,ret_cost:786},
+  {d:'BW8032MAUVE',cat:'Co-Ords',fo:15,ro:6,sell:744,fwd_s:547,ret_cost:375},
+  {d:'BW10K97CORAL',cat:'Dresses',fo:15,ro:5,sell:1464,fwd_s:1097,ret_cost:654},
+  {d:'BW8051MRN',cat:'Co-Ords',fo:14,ro:5,sell:1167,fwd_s:853,ret_cost:547},
+  {d:'BW8034PINK',cat:'Co-Ords',fo:14,ro:5,sell:1118,fwd_s:835,ret_cost:390},
+  {d:'BP7006BLK',cat:'Co-Ords',fo:14,ro:4,sell:827,fwd_s:619,ret_cost:112},
+  {d:'BW10K5',cat:'Dresses',fo:13,ro:4,sell:888,fwd_s:654,ret_cost:294},
+  {d:'BWR6085BLUE',cat:'Dresses',fo:12,ro:4,sell:667,fwd_s:471,ret_cost:252},
+  {d:'BW7002BRN',cat:'Co-Ords',fo:11,ro:3,sell:622,fwd_s:459,ret_cost:150},
+  {d:'BW10K99BLUE',cat:'Dresses',fo:10,ro:4,sell:1598,fwd_s:1215,ret_cost:883},
+  {d:'BW8001GRN',cat:'Co-Ords',fo:10,ro:3,sell:798,fwd_s:592,ret_cost:280},
+  {d:'BW8062FUSH',cat:'Co-Ords',fo:10,ro:3,sell:1294,fwd_s:946,ret_cost:479},
+  {d:'BW7002BEIGE',cat:'Co-Ords',fo:10,ro:3,sell:898,fwd_s:684,ret_cost:391},
+];
+
+function calcProf(d){
+  const retRate=d.fo>0?d.ro/d.fo*100:0;
+  const trueNet=d.fwd_s-d.ret_cost;
+  const marginWithout=d.sell>0?d.fwd_s/d.sell*100:0;
+  const marginWith=d.sell>0?trueNet/d.sell*100:0;
+  const erosion=marginWithout-marginWith;
+  const cogs=COGS[d.d];
+  const gp=cogs!==undefined?trueNet-cogs:null;
+  const gm=cogs!==undefined&&trueNet>0?gp/trueNet*100:null;
+  const tgp=cogs!==undefined?gp*d.fo:null;
+  return{...d,retRate,trueNet,marginWithout,marginWith,erosion,cogs,gp,gm,tgp};
+}
+
+function renderProfMetrics(){
+  const all=PROF_DATA.map(calcProf);
+  const totalFo=all.reduce((a,d)=>a+d.fo,0),totalRo=all.reduce((a,d)=>a+d.ro,0);
+  const totalRetCost=all.reduce((a,d)=>a+d.ret_cost*d.fo,0);
+  const withC=all.filter(d=>d.cogs!==undefined);
+  const totalGP=withC.reduce((a,d)=>a+d.tgp,0);
+  const totalTN=withC.reduce((a,d)=>a+d.trueNet*d.fo,0);
+  const overallGM=totalTN>0?totalGP/totalTN*100:NaN;
+  document.getElementById('prof-metrics').innerHTML=[
+    ['Fwd orders',totalFo,''],['Total returns',totalRo+' ('+pct(totalRo/totalFo*100)+')','dn'],
+    ['Return cost',inr(totalRetCost),'dn'],['Designs with COGS',withC.length+'/'+PROF_DATA.length,''],
+    ['Total gross profit',isNaN(overallGM)?'Enter COGS':inr(totalGP),totalGP>0?'up':'dn'],
+    ['Overall gross margin',pct(overallGM),overallGM>=30?'up':overallGM>=15?'warn':'dn'],
+    ['Profitable designs',withC.filter(d=>d.gp>0).length,'up'],
+    ['Loss-making designs',withC.filter(d=>d.gp<=0).length,'dn'],
+  ].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+}
+
+function renderProf(){
+  const q=(document.getElementById('prof-search')?.value||'').toLowerCase();
+  const cat=document.getElementById('prof-cat')?.value||'';
+  const sort=document.getElementById('prof-sort')?.value||'fo';
+  const show=document.getElementById('prof-show')?.value||'all';
+  let rows=PROF_DATA.map(calcProf).filter(d=>{
+    if(q&&!d.d.toLowerCase().includes(q))return false;
+    if(cat&&d.cat!==cat)return false;
+    if(show==='loss'&&(d.gp===null||d.gp>0))return false;
+    if(show==='high-ret'&&d.retRate<35)return false;
+    return true;
+  });
+  if(sort==='fo')rows.sort((a,b)=>b.fo-a.fo);
+  else if(sort==='gm')rows.sort((a,b)=>(b.gm||0)-(a.gm||0));
+  else if(sort==='tgp')rows.sort((a,b)=>(b.tgp||0)-(a.tgp||0));
+  else if(sort==='retrate')rows.sort((a,b)=>b.retRate-a.retRate);
+  else if(sort==='erosion')rows.sort((a,b)=>b.erosion-a.erosion);
+  const totalGP=rows.filter(d=>d.tgp!==null).reduce((a,d)=>a+d.tgp,0);
+  document.getElementById('prof-tbody').innerHTML=rows.map((d,i)=>{
+    const rc=d.retRate>40?'#a32d2d':d.retRate>25?'#854f0b':'#3b6d11';
+    const tnc=d.trueNet<200?'#a32d2d':d.trueNet<400?'#854f0b':'#3b6d11';
+    const ec=d.erosion>40?'#a32d2d':d.erosion>20?'#854f0b':'#3b6d11';
+    return `<tr>
+      <td style="color:var(--color-text-secondary)">${i+1}</td>
+      <td style="font-family:var(--font-mono);font-size:10px;font-weight:500">${d.d}</td>
+      <td>${catBadge(d.cat)}</td>
+      <td style="font-weight:500">${d.fo}</td><td class="dn">${d.ro}</td>
+      <td style="color:${rc};font-weight:500">${pct(d.retRate)}</td>
+      <td>${inr(d.sell)}</td><td style="color:#7f77dd">${inr(d.fwd_s)}</td>
+      <td class="dn">${inr(d.ret_cost)}</td>
+      <td style="font-weight:500;color:${tnc}">${inr(d.trueNet)}</td>
+      <td><input type="number" class="cogs-input ${d.cogs!==undefined?d.gm>=30?'filled':d.gm>=15?'warn-margin':'bad-margin':''}" placeholder="₹" value="${d.cogs!==undefined?d.cogs:''}" oninput="onCogs('${d.d}',this.value)" min="0" step="1"></td>
+      <td id="gp-${d.d}" style="font-weight:500;color:${gc(d.gm)}">${d.gp!==null?inr(d.gp):'—'}</td>
+      <td id="gm-${d.d}" style="font-weight:500;color:${gc(d.gm)}">${d.gm!==null?pct(d.gm):'—'}</td>
+      <td id="tgp-${d.d}" style="font-weight:500;color:${gc(d.gm)}">${d.tgp!==null?inr(d.tgp):'—'}</td>
+      <td style="font-weight:500;color:${ec}">-${pct(d.erosion)}</td>
+    </tr>`;
+  }).join('');
+  document.getElementById('prof-count-txt').textContent=rows.length+' of '+PROF_DATA.length+' designs';
+  document.getElementById('prof-total-txt').innerHTML=rows.some(d=>d.tgp!==null)?'Total GP: <span class="'+(totalGP>0?'up':'dn')+'">'+inr(totalGP)+'</span>':'';
+}
+
+function onCogs(design,val){
+  const v=parseFloat(val);
+  if(val===''||isNaN(v))delete COGS[design];else COGS[design]=v;
+  const d=calcProf(PROF_DATA.find(x=>x.d===design));
+  const gpEl=document.getElementById('gp-'+design);
+  const gmEl=document.getElementById('gm-'+design);
+  const tgpEl=document.getElementById('tgp-'+design);
+  if(gpEl)gpEl.textContent=d.gp!==null?inr(d.gp):'—';
+  if(gmEl){gmEl.textContent=d.gm!==null?pct(d.gm):'—';gmEl.style.color=gc(d.gm);}
+  if(tgpEl){tgpEl.textContent=d.tgp!==null?inr(d.tgp):'—';tgpEl.style.color=gc(d.gm);}
+  renderProfMetrics();
+}
+
+function renderWF(){
+  const dName=document.getElementById('wf-design')?.value;
+  const cont=document.getElementById('wf-content');
+  if(!dName){cont.innerHTML='<div class="empty">Select a design above</div>';return;}
+  const d=calcProf(PROF_DATA.find(x=>x.d===dName));
+  const steps=[
+    {l:'Customer sell price',v:d.sell,c:'#1d9e75',note:'What Myntra charges the customer'},
+    {l:'Myntra deductions (commission + fees + logistics)',v:-(d.sell-d.fwd_s),c:'#e24b4a',note:'All Myntra charges on the forward order'},
+    {l:'= Forward net settled per order',v:d.fwd_s,c:'#7f77dd',note:'What hits your bank per forward order shipped'},
+    {l:'Return cost per order ('+pct(d.retRate)+' return rate)',v:-d.ret_cost,c:'#a32d2d',note:'Clawback + reverse logistics − commission credit, spread across all '+d.fo+' forward orders'},
+    {l:'= TRUE net per order placed',v:d.trueNet,c:d.trueNet>0?'#1d9e75':'#a32d2d',note:'The real money per order after returns are factored in'},
+  ];
+  if(d.cogs!==undefined){steps.push({l:'Less: COGS (your production cost)',v:-d.cogs,c:'#d85a30',note:'Your all-in landed cost per unit'});steps.push({l:'= Gross profit per order',v:d.gp,c:d.gp>0?'#3b6d11':'#a32d2d',note:'Gross margin: '+pct(d.gm)+(d.gp<0?' ← LOSS-MAKING':'')});}
+  const mx=Math.max(...steps.map(s=>Math.abs(s.v)));
+  cont.innerHTML=`<div class="card"><div class="ct">${dName} — ${d.fo} fwd orders · ${d.ro} returns (${pct(d.retRate)}) · return erosion -${pct(d.erosion)}</div>
+  ${steps.map(s=>`<div style="margin-bottom:14px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:4px"><span style="color:var(--color-text-secondary)">${s.l}</span><span style="font-weight:500;color:${s.c}">${s.v<0?'-'+inr(-s.v):inr(s.v)}</span></div><div style="height:7px;background:var(--color-background-secondary);border-radius:4px;overflow:hidden"><div style="width:${(Math.abs(s.v)/mx*100).toFixed(0)}%;height:100%;background:${s.c};border-radius:4px"></div></div><div style="font-size:11px;color:var(--color-text-tertiary);margin-top:2px">${s.note}</div></div>`).join('')}
+  </div>
+  <div class="card" style="background:var(--color-background-secondary);border:none"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;font-size:12px">
+    <div><div style="color:var(--color-text-secondary);margin-bottom:3px">Without returns</div><div style="font-weight:500;color:#7f77dd">${inr(d.fwd_s)}/order · ${pct(d.marginWithout)} margin</div></div>
+    <div><div style="color:var(--color-text-secondary);margin-bottom:3px">With ${pct(d.retRate)} returns</div><div style="font-weight:500;color:${d.trueNet>0?'#3b6d11':'#a32d2d'}">${inr(d.trueNet)}/order · ${pct(d.marginWith)} true margin</div></div>
+    <div><div style="color:var(--color-text-secondary);margin-bottom:3px">Return cost</div><div style="font-weight:500;color:#a32d2d">${inr(d.ret_cost)}/order · -${pct(d.erosion)}</div></div>
+    ${d.cogs!==undefined?`<div><div style="color:var(--color-text-secondary);margin-bottom:3px">COGS</div><div style="font-weight:500;color:#d85a30">${inr(d.cogs)}/unit</div></div><div><div style="color:var(--color-text-secondary);margin-bottom:3px">Gross profit</div><div style="font-weight:500;color:${gc(d.gm)}">${inr(d.gp)}/unit</div></div><div><div style="color:var(--color-text-secondary);margin-bottom:3px">Gross margin</div><div style="font-weight:500;color:${gc(d.gm)}">${pct(d.gm)}${d.gp<0?' ⚠ LOSS':''}</div></div>`:''}
+  </div></div>`;
+}
+
+function renderProfAnalysis(){
+  const all=PROF_DATA.map(calcProf);
+  const withC=all.filter(d=>d.cogs!==undefined);
+  const catMap={};withC.forEach(d=>{if(!catMap[d.cat])catMap[d.cat]={tn:0,tgp:0};catMap[d.cat].tn+=d.trueNet*d.fo;catMap[d.cat].tgp+=d.tgp;});
+  const catBars=Object.entries(catMap).map(([c,v])=>({cat:c,gm:v.tn>0?v.tgp/v.tn*100:0})).sort((a,b)=>b.gm-a.gm);
+  const maxGM=Math.max(...catBars.map(x=>Math.abs(x.gm)),1);
+  document.getElementById('pa-cat-bars').innerHTML=catBars.map(x=>`<div class="br"><div class="bl">${catBadge(x.cat)}</div><div class="bt"><div class="bf" style="width:${(Math.abs(x.gm)/maxGM*100).toFixed(0)}%;background:${x.gm>=30?'#1d9e75':x.gm>=15?'#ef9f27':x.gm>=0?'#e24b4a':'#a32d2d'}"></div></div><div class="bv" style="color:${gc(x.gm)}">${pct(x.gm)}</div></div>`).join('');
+  const buckets={'<0%':0,'0–15%':0,'15–30%':0,'30–50%':0,'>50%':0};
+  withC.forEach(d=>{if(d.gm<0)buckets['<0%']++;else if(d.gm<15)buckets['0–15%']++;else if(d.gm<30)buckets['15–30%']++;else if(d.gm<50)buckets['30–50%']++;else buckets['>50%']++;});
+  const bC={'<0%':'#a32d2d','0–15%':'#e24b4a','15–30%':'#ef9f27','30–50%':'#1d9e75','>50%':'#3b6d11'};
+  const maxB=Math.max(...Object.values(buckets),1);
+  document.getElementById('pa-dist').innerHTML=Object.entries(buckets).map(([k,v])=>`<div class="br"><div class="bl">${k}</div><div class="bt"><div class="bf" style="width:${(v/maxB*100).toFixed(0)}%;background:${bC[k]}"></div></div><div class="bv">${v} designs</div></div>`).join('');
+  const sorted=[...withC].sort((a,b)=>b.tgp-a.tgp);
+  const rowFmt=d=>`<tr><td style="font-family:var(--font-mono);font-size:10px">${d.d}</td><td>${catBadge(d.cat)}</td><td>${d.fo}</td><td style="color:${d.retRate>35?'#a32d2d':'#3b6d11'}">${pct(d.retRate)}</td><td>${inr(d.trueNet)}</td><td class="${gcls(d.gm)}">${pct(d.gm)}</td><td style="color:${gc(d.gm)};font-weight:500">${inr(d.tgp)}</td></tr>`;
+  document.getElementById('pa-top').innerHTML=sorted.slice(0,10).map(rowFmt).join('');
+  document.getElementById('pa-bottom').innerHTML=[...withC].sort((a,b)=>a.tgp-b.tgp).slice(0,10).map(rowFmt).join('');
+  const totalTN=withC.reduce((a,d)=>a+d.trueNet*d.fo,0);const totalCOGS=withC.reduce((a,d)=>a+d.cogs*d.fo,0);const totalGP=withC.reduce((a,d)=>a+d.tgp,0);const totalSell=withC.reduce((a,d)=>a+d.sell*d.fo,0);const totalFwdS=withC.reduce((a,d)=>a+d.fwd_s*d.fo,0);const totalRetC=withC.reduce((a,d)=>a+d.ret_cost*d.fo,0);
+  document.getElementById('pa-bridge').innerHTML=[['Total selling price collected',inr(totalSell),''],['Less: Myntra deductions',inr(-(totalFwdS-totalSell)),'dn'],['= Forward net settled',inr(totalFwdS),'up'],['Less: Total return cost',inr(-totalRetC),'dn'],['= True net settled',inr(totalTN),'up'],['Less: Total COGS',inr(-totalCOGS),'dn'],['= Total gross profit',inr(totalGP),totalGP>0?'up':'dn'],['Gross margin %',pct(totalTN>0?totalGP/totalTN*100:NaN),totalGP/totalTN*100>=30?'up':'warn']].map(([l,v,c])=>`<div class="pl-row"><span>${l}</span><span class="${c}" style="font-weight:500">${v}</span></div>`).join('');
+  const totalAllFo=all.reduce((a,d)=>a+d.fo,0),totalAllRo=all.reduce((a,d)=>a+d.ro,0);const totalRetCostAll=all.reduce((a,d)=>a+d.ret_cost*d.fo,0);const saving=totalRetCostAll*0.1;
+  document.getElementById('pa-whatif').innerHTML=`<div style="font-size:12px;line-height:2"><div class="pl-row"><span>Current overall return rate</span><span class="dn">${pct(totalAllRo/totalAllFo*100)}</span></div><div class="pl-row"><span>Current total return cost</span><span class="dn">${inr(totalRetCostAll)}</span></div><div class="pl-row"><span>If return rate drops 10% (to ${pct(totalAllRo/totalAllFo*100*0.9)})</span><span>Saving: ${inr(saving)}/period</span></div><div class="pl-row" style="font-weight:500"><span>Every 1% reduction in return rate adds ~</span><span class="up">+${inr(saving/10)}</span></div><div style="margin-top:8px;color:var(--color-text-secondary)">Focus: BP10K20 (44% ret), BW8034 (44% ret), BW10K40Grey (52% ret), BP9012 (55% ret)</div></div>`;
+}
+
+function exportProfitCSV(){
+  const rows=[['Design','Category','Fwd orders','Returns','Return%','Avg sell','Fwd settled/ord','Ret cost/ord','True net/ord','COGS/unit','Gross profit/unit','Gross margin%','Total gross profit','Margin erosion pp']];
+  PROF_DATA.map(calcProf).sort((a,b)=>b.fo-a.fo).forEach(d=>{rows.push([d.d,d.cat,d.fo,d.ro,Math.round(d.retRate*10)/10,Math.round(d.sell),Math.round(d.fwd_s),Math.round(d.ret_cost),Math.round(d.trueNet),d.cogs||'',d.gp!==null?Math.round(d.gp):'',d.gm!==null?Math.round(d.gm*10)/10:'',d.tgp!==null?Math.round(d.tgp):'',Math.round(d.erosion*10)/10]);});
+  const blob=new Blob([rows.map(r=>r.join(',')).join('\n')],{type:'text/csv'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='bani_women_true_profitability.csv';a.click();
+}
+
+// ── PRODUCT MASTER ──
+function renderPMMetrics(){
+  const cats={};VAN_LIST.forEach(r=>{cats[r.cat]=(cats[r.cat]||0)+1;});
+  document.getElementById('pm-metrics').innerHTML=[['Total SKUs',VAN_LIST.length||7385],['Styles',new Set(VAN_LIST.map(v=>v.style_id)).size||1479],['Co-Ords',cats['Co-Ords']||2464],['Kurta Sets',cats['Kurta Sets']||3157],['Dresses',cats['Dresses']||623],['Match to reports','99.9%']].map(([l,v])=>`<div class="mc"><div class="ml">${l}</div><div class="mv">${v}</div></div>`).join('');
+}
+function renderPM(){
+  const q=(document.getElementById('pm-search')?.value||'').toLowerCase();
+  const sz=document.getElementById('pm-size')?.value||'';
+  let rows=VAN_LIST.filter(r=>{if(pmCat!=='all'&&r.cat!==pmCat)return false;if(sz&&r.size!==sz)return false;if(q&&!r.van.toLowerCase().includes(q)&&!r.design.toLowerCase().includes(q)&&!r.color.toLowerCase().includes(q))return false;return true;});
+  document.getElementById('pm-table').innerHTML=rows.length?rows.slice(0,60).map(r=>`<tr><td style="font-family:var(--font-mono);font-size:10px">${r.van}</td><td style="font-family:var(--font-mono);font-size:10px">${r.design}</td><td style="font-size:11px">${r.color||'—'}</td><td>${szBadge(r.size)}</td><td>${catBadge(r.cat)}</td><td style="font-family:var(--font-mono);font-size:10px">${r.style_id||'—'}</td><td style="font-family:var(--font-mono);font-size:10px">${r.sku_id||'—'}</td></tr>`).join(''):'<tr><td colspan="7" class="empty">Upload Listing_IDs.xlsx to see products</td></tr>';
+  document.getElementById('pm-count').textContent='Showing '+Math.min(rows.length,60)+' of '+rows.length+' SKUs';
+}
+function doLookup(){
+  const q=(document.getElementById('lookup-q')?.value||'').trim();
+  const cont=document.getElementById('lookup-result');
+  if(!q||q.length<3){cont.innerHTML='';return;}
+  const qL=q.toLowerCase(),qN=parseInt(q.replace(/\D/g,''))||0;
+  const type=document.getElementById('lookup-type')?.value||'all';
+  const matches=VAN_LIST.filter(r=>{
+    if(type==='van'||type==='all')if(r.van.toLowerCase().includes(qL)||r.design.toLowerCase().includes(qL))return true;
+    if(type==='sku'||type==='all')if(qN&&r.sku_id===qN)return true;
+    if(type==='style'||type==='all')if(qN&&r.style_id===qN)return true;
+    return false;
+  });
+  if(!matches.length){cont.innerHTML='<div class="empty">No match for "'+q+'"</div>';return;}
+  cont.innerHTML='<div style="margin-top:.75rem">'+matches.slice(0,6).map(r=>`<div style="border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-md);padding:10px;margin-bottom:6px"><div style="font-family:var(--font-mono);font-weight:500;font-size:12px;margin-bottom:6px">${r.van}</div><div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px"><span style="color:var(--color-text-secondary)">Design: <strong style="font-family:var(--font-mono)">${r.design}</strong></span><span style="color:var(--color-text-secondary)">Colour: <strong>${r.color||'—'}</strong></span><span>Size: ${szBadge(r.size)}</span><span>Cat: ${catBadge(r.cat)}</span></div><div style="display:flex;gap:12px;flex-wrap:wrap;font-size:12px;margin-top:4px"><span style="color:var(--color-text-secondary)">Style ID: <code>${r.style_id}</code></span><span style="color:var(--color-text-secondary)">SKU ID: <code>${r.sku_id}</code></span></div></div>`).join('')+(matches.length>6?`<div style="font-size:11px;color:var(--color-text-secondary)">+${matches.length-6} more — refine your search</div>`:'')+`</div>`;
+}
+
+// ── SKU ANALYTICS ──
+function renderSKU(){
+  const fwd=DB.fwd,ret=DB.ret;
+  if(!fwd.length){document.getElementById('sku-tbody').innerHTML='<tr><td colspan="14" class="empty">Upload forward settlement report</td></tr>';return;}
+  const catF=document.getElementById('sku-cat').value,sortBy=document.getElementById('sku-sort').value;
+  const skuF={};fwd.forEach(r=>{const s=r.sku_code||'',vi=vanInfo(s);const cat=vi?vi.cat:(r.article_type||'Other');if(catF&&cat!==catF)return;if(!skuF[s])skuF[s]={sku:s,vi,cat,fwd:0,mrp:0,rev:0,disc:0,comm:0,log:0,settled:0};skuF[s].fwd++;skuF[s].mrp+=r.mrp||0;skuF[s].rev+=r.customer_paid_amt||0;skuF[s].disc+=r.total_discount_amount||0;skuF[s].comm+=Math.abs(r.total_commission||0);skuF[s].log+=r.total_logistics_deduction||0;skuF[s].settled+=r.total_actual_settlement||0;});
+  const skuR={};ret.forEach(r=>{const s=r.sku_code||'';if(!skuR[s])skuR[s]={count:0,clawback:0};skuR[s].count++;skuR[s].clawback+=Math.abs(r.total_actual_settlement||0);});
+  let rows=Object.values(skuF).map(d=>{const rd=skuR[d.sku]||{count:0,clawback:0};const retRate=d.fwd>0?rd.count/d.fwd*100:0;const net=d.settled-rd.clawback;const avgMRP=d.fwd>0?d.mrp/d.fwd:0,avgSP=d.fwd>0?d.rev/d.fwd:0;const disc=avgMRP>0?(avgMRP-avgSP)/avgMRP*100:0;return{...d,ret:rd.count,retRate,clawback:rd.clawback,net,avgMRP,avgSP,disc};});
+  if(sortBy==='net')rows.sort((a,b)=>b.net-a.net);else if(sortBy==='orders')rows.sort((a,b)=>b.fwd-a.fwd);else if(sortBy==='retrate')rows.sort((a,b)=>b.retRate-a.retRate);else rows.sort((a,b)=>b.rev-a.rev);
+  document.getElementById('sku-tbody').innerHTML=rows.slice(0,60).map(r=>`<tr><td style="font-family:var(--font-mono);font-size:10px">${r.vi?r.vi.van:r.sku}</td><td style="font-family:var(--font-mono);font-size:10px">${r.vi?r.vi.design:'—'}</td><td>${r.vi?szBadge(r.vi.size):'—'}</td><td>${catBadge(r.cat)}</td><td>${r.fwd}</td><td class="dn">${r.ret}</td><td class="${r.retRate>25?'dn':r.retRate>15?'warn':''}">${pct(r.retRate)}</td><td>${inr(r.avgMRP)}</td><td>${inr(r.avgSP)}</td><td class="dn">${pct(r.disc)}</td><td>${inr(r.rev)}</td><td class="dn">${inr(r.clawback)}</td><td class="dn">${inr(r.comm)}</td><td class="${r.net>0?'up':'dn'}">${inr(r.net)}</td></tr>`).join('');
+}
+
+// ── RETURNS ──
+function renderReturns(){
+  const ret=DB.ret,fwd=DB.fwd;
+  if(!ret.length){document.getElementById('ret-metrics').innerHTML='<div class="empty" style="grid-column:1/-1">Upload returns data</div>';return;}
+  const retClawback=Math.abs(n_(ret,'total_actual_settlement')),revLog=n_(ret,'total_logistics_deduction'),commCredit=n_(ret,'total_commission');
+  const retRate=fwd.length>0?ret.length/fwd.length*100:0;
+  document.getElementById('ret-metrics').innerHTML=[['Total returns',ret.length,'dn'],['Return rate',pct(retRate),retRate>20?'dn':'warn'],['Revenue clawback',inr(retClawback),'dn'],['Rev logistics',inr(revLog),'dn'],['Commission credited',inr(commCredit),'up'],['Net cost of returns',inr(retClawback+revLog-commCredit),'dn']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const catFM={},catRM={},sizeRM={};
+  fwd.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');catFM[c]=(catFM[c]||0)+1;});
+  ret.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');const sz=vi?vi.size:'';if(!catRM[c])catRM[c]={count:0};catRM[c].count++;if(sz){if(!sizeRM[sz])sizeRM[sz]=0;sizeRM[sz]++;}});
+  const catRR=Object.entries(catRM).map(([c,d])=>({cat:c,count:d.count,rate:catFM[c]>0?d.count/catFM[c]*100:100})).sort((a,b)=>b.count-a.count);
+  const maxCR=Math.max(...catRR.map(r=>r.rate))||1;
+  document.getElementById('ret-cat-bars').innerHTML=catRR.map(d=>`<div class="br"><div class="bl">${catBadge(d.cat)}</div><div class="bt"><div class="bf" style="width:${(d.rate/maxCR*100).toFixed(0)}%;background:#e24b4a"></div></div><div class="bv dn">${pct(d.rate)}</div></div>`).join('');
+  const szOrder=['XS','S','M','L','XL','XXL','XXXL'];
+  const szSorted=Object.entries(sizeRM).sort((a,b)=>szOrder.indexOf(a[0])-szOrder.indexOf(b[0]));
+  const maxSZ=Math.max(...szSorted.map(([,v])=>v))||1;
+  document.getElementById('ret-size-bars').innerHTML=szSorted.map(([sz,v])=>`<div class="br"><div class="bl">${szBadge(sz)}</div><div class="bt"><div class="bf" style="width:${(v/maxSZ*100).toFixed(0)}%;background:#d4537e"></div></div><div class="bv">${v} returns</div></div>`).join('');
+  const skuFM={},skuRM={};fwd.forEach(r=>{const s=r.sku_code||'';if(!skuFM[s])skuFM[s]={count:0,vi:vanInfo(s)};skuFM[s].count++;});ret.forEach(r=>{const s=r.sku_code||'';if(!skuRM[s])skuRM[s]={count:0,vi:vanInfo(s),clawback:0};skuRM[s].count++;skuRM[s].clawback+=Math.abs(r.total_actual_settlement||0);});
+  const skuRet=Object.entries(skuRM).map(([s,d])=>({sku:s,...d,fwd:skuFM[s]?.count||0,rate:skuFM[s]?.count>0?d.count/skuFM[s].count*100:100})).sort((a,b)=>b.count-a.count).slice(0,30);
+  document.getElementById('ret-sku-tbody').innerHTML=skuRet.map(r=>`<tr><td style="font-family:var(--font-mono);font-size:10px">${r.vi?r.vi.van:r.sku}</td><td style="font-family:var(--font-mono);font-size:10px">${r.vi?r.vi.design:'—'}</td><td>${r.vi?szBadge(r.vi.size):'—'}</td><td>${r.vi?catBadge(r.vi.cat):'—'}</td><td>${r.fwd}</td><td class="dn">${r.count}</td><td class="${r.rate>30?'dn':'warn'}">${pct(r.rate)}</td><td class="dn">${inr(r.clawback)}</td></tr>`).join('');
+}
+
+// ── ORDER FLOW ──
+function renderOperations(){
+  const flow=DB.flow;
+  if(!flow.length){document.getElementById('ops-metrics').innerHTML='<div class="empty" style="grid-column:1/-1">Upload order flow report</div>';return;}
+  const total=flow.length,delivered=flow.filter(r=>r.order_item_status==='delivered').length;
+  const inTransit=flow.filter(r=>r.order_item_status==='in_transit').length;
+  const withReturn=flow.filter(r=>r.return_date).length,rto=flow.filter(r=>r.return_type==='release_rto_refund').length;
+  const restocked=flow.filter(r=>r.order_item_status==='restocked').length;
+  const exchanges=flow.filter(r=>r.return_type==='exchange').length,refunds=flow.filter(r=>r.return_type==='return_refund').length;
+  const delDays=[];flow.forEach(r=>{if(!r.order_date||!r.actual_delivery_date)return;const d=Math.round((new Date(r.actual_delivery_date)-new Date(r.order_date))/86400000);if(d>=0&&d<=20)delDays.push(d);});
+  const avgDays=delDays.length?delDays.reduce((a,b)=>a+b,0)/delDays.length:0;
+  document.getElementById('ops-metrics').innerHTML=[['Orders',total,''],['Delivered',delivered+' ('+pct(delivered/total*100)+')','up'],['In transit',inTransit,''],['Returned',withReturn+' ('+pct(withReturn/total*100)+')','dn'],['RTOs',rto+' ('+pct(rto/total*100)+')','dn'],['Restocked',restocked,''],['Avg delivery',avgDays.toFixed(1)+'d',avgDays<=4?'up':'warn']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const funnelData=[{l:'Orders placed',v:total,c:'#7f77dd'},{l:'Delivered',v:delivered,c:'#1d9e75'},{l:'Kept (no return)',v:Math.max(delivered-withReturn,0),c:'#3b6d11'},{l:'Returned/RTO',v:withReturn+rto,c:'#e24b4a'},{l:'Restocked',v:restocked,c:'#888780'}];
+  document.getElementById('ops-funnel').innerHTML=funnelData.map(s=>`<div style="background:var(--color-background-secondary);border-radius:6px;padding:9px 12px;margin-bottom:5px;display:flex;align-items:center;gap:10px"><div style="flex:1"><div style="font-size:12px;margin-bottom:4px">${s.l}</div><div style="height:5px;background:var(--color-background-primary);border-radius:3px;overflow:hidden"><div style="width:${(s.v/total*100).toFixed(0)}%;height:100%;background:${s.c};border-radius:3px"></div></div></div><div style="text-align:right;min-width:70px"><div style="font-weight:500;font-size:13px">${s.v.toLocaleString('en-IN')}</div><div style="font-size:11px;color:var(--color-text-secondary)">${pct(s.v/total*100)}</div></div></div>`).join('');
+  const dayBuckets={};delDays.forEach(d=>{dayBuckets[d]=(dayBuckets[d]||0)+1;});
+  if(CH.del)CH.del.destroy();
+  CH.del=new Chart(document.getElementById('del-chart'),{type:'bar',data:{labels:Array.from({length:11},(_,i)=>i+'d'),datasets:[{data:Array.from({length:11},(_,i)=>dayBuckets[i]||0),backgroundColor:Array.from({length:11},(_,i)=>i<=3?'#1d9e75':i<=5?'#ef9f27':'#e24b4a'),borderRadius:3}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{ticks:{font:{size:10}},grid:{color:'rgba(128,128,128,0.07)'}},x:{grid:{display:false},ticks:{font:{size:10}}}}}});
+  const rtypes=[{l:'Return & refund',v:refunds,c:'#e24b4a'},{l:'RTO (undelivered)',v:rto,c:'#d85a30'},{l:'Exchange',v:exchanges,c:'#ef9f27'}];
+  const maxRT=Math.max(...rtypes.map(r=>r.v))||1;
+  document.getElementById('ops-ret-type').innerHTML=rtypes.map(r=>`<div class="br"><div class="bl">${r.l}</div><div class="bt"><div class="bf" style="width:${(r.v/maxRT*100).toFixed(0)}%;background:${r.c}"></div></div><div class="bv">${r.v} (${pct(r.v/total*100)})</div></div>`).join('');
+  const rtoCat={};flow.filter(r=>r.return_type==='release_rto_refund').forEach(r=>{const vi=vanInfo(r.product_sku_code||r.sku_code||'');const c=vi?vi.cat:(r.article_type||'Other');rtoCat[c]=(rtoCat[c]||0)+1;});
+  const maxRTO=Math.max(...Object.values(rtoCat))||1;
+  document.getElementById('ops-rto-cat').innerHTML=Object.entries(rtoCat).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`<div class="br"><div class="bl">${catBadge(c)}</div><div class="bt"><div class="bf" style="width:${(v/maxRTO*100).toFixed(0)}%;background:#d85a30"></div></div><div class="bv dn">${v}</div></div>`).join('');
+  const courierMap={};flow.forEach(r=>{const c=(r.courier_name||'Unknown').replace('flipkartlogistics','Ekart').replace('EK_E2E','Ekart E2E');if(!courierMap[c])courierMap[c]={total:0,returned:0};courierMap[c].total++;if(r.return_date)courierMap[c].returned++;});
+  const maxCou=Math.max(...Object.values(courierMap).map(c=>c.total))||1;
+  document.getElementById('ops-courier').innerHTML=Object.entries(courierMap).sort((a,b)=>b[1].total-a[1].total).map(([c,d])=>`<div class="br"><div class="bl">${c}</div><div class="bt"><div class="bf" style="width:${(d.total/maxCou*100).toFixed(0)}%;background:#7f77dd"></div></div><div class="bv">${d.total} orders · ${pct(d.returned/d.total*100)} ret</div></div>`).join('');
+}
+
+// ── SETTLEMENT ──
+function renderSettlement(){
+  const fwd=DB.fwd,ret=DB.ret,fwdU=DB.fwdU,retU=DB.retU;
+  if(!fwd.length){document.getElementById('sett-metrics').innerHTML='<div class="empty" style="grid-column:1/-1">Upload reports</div>';return;}
+  const fwdSettled=n_(fwd,'total_actual_settlement'),retClawback=Math.abs(n_(ret,'total_actual_settlement'));
+  const fwdComm=Math.abs(n_(fwd,'total_commission')),fwdLog=n_(fwd,'total_logistics_deduction');
+  const retLog=n_(ret,'total_logistics_deduction'),tcs=n_(fwd,'tcs_amount'),tds=n_(fwd,'tds_amount');
+  const pendFwd=n_(fwdU,'amount_pending_settlement'),pendRet=Math.abs(n_(retU,'amount_pending_settlement'));
+  const sjit=n_(fwd,'sjit_incentive'),commDisc=n_(fwd,'commission_discount');
+  const nodNet=DB.nod.reduce((a,r)=>a+(parseFloat(r.Settlement_Amount)||0),0);
+  const trueNet=fwdSettled-retClawback+sjit+commDisc+nodNet;
+  const fixedFee=n_(fwd,'fixed_fee'),pickPack=n_(fwd,'pick_and_pack_fee');
+  document.getElementById('sett-metrics').innerHTML=[['Fwd settled',inr(fwdSettled),'up'],['Fwd pending',inr(pendFwd),'warn'],['SJIT incentive',inr(sjit),'up'],['Comm discount',inr(commDisc),'up'],['NOD net',inr(nodNet),nodNet>0?'up':'dn'],['Ret clawback','-'+inr(retClawback),'dn'],['Ret pending',inr(pendRet),'warn'],['TRUE net',inr(trueNet),trueNet>0?'up':'dn'],['Commission',inr(fwdComm),'dn'],['Fwd logistics',inr(fwdLog),'dn']].map(([l,v,c])=>`<div class="mc"><div class="ml">${l}</div><div class="mv ${c}">${v}</div></div>`).join('');
+  const deducts=[{l:'Returns clawback',v:retClawback,c:'#a32d2d'},{l:'Commission',v:fwdComm,c:'#7f77dd'},{l:'Fixed fee',v:fixedFee,c:'#d85a30'},{l:'Rev logistics',v:retLog,c:'#d4537e'},{l:'TCS',v:tcs,c:'#e24b4a'},{l:'TDS',v:tds,c:'#888780'},{l:'Pick & pack',v:pickPack,c:'#378add'}].sort((a,b)=>b.v-a.v);
+  const maxD=deducts[0]?.v||1;
+  document.getElementById('sett-deductions').innerHTML=deducts.map(d=>`<div class="br"><div class="bl">${d.l}</div><div class="bt"><div class="bf" style="width:${(d.v/maxD*100).toFixed(0)}%;background:${d.c}"></div></div><div class="bv">${inr(d.v)}</div></div>`).join('');
+  const fwdZ={},retZ={};
+  fwd.forEach(r=>{const z=r.shipment_zone_classification||'Other';if(!fwdZ[z])fwdZ[z]={count:0,log:0};fwdZ[z].count++;fwdZ[z].log+=Math.abs(r.total_logistics_deduction||0);});
+  ret.forEach(r=>{const z=r.shipment_zone_classification||'Other';if(!retZ[z])retZ[z]={count:0,log:0};retZ[z].count++;retZ[z].log+=Math.abs(r.total_logistics_deduction||0);});
+  document.getElementById('sett-zones').innerHTML=Object.entries(fwdZ).sort((a,b)=>b[1].count-a[1].count).map(([z,d])=>{const rl=retZ[z]?retZ[z].log/(retZ[z].count||1):0;const zc={NATIONAL:'#7f77dd',ZONAL:'#1d9e75',LOCAL:'#ef9f27'}[z]||'#888780';return `<div style="margin-bottom:14px"><div style="font-size:12px;font-weight:500;margin-bottom:4px">${z}</div><div class="br" style="margin-bottom:4px"><div class="bl" style="font-size:11px;color:var(--color-text-secondary)">Fwd avg</div><div class="bt"><div class="bf" style="width:${(d.log/d.count/100*100).toFixed(0)}%;background:${zc}"></div></div><div class="bv">${inr(d.log/d.count)}/order</div></div><div class="br"><div class="bl" style="font-size:11px;color:var(--color-text-secondary)">Rev avg</div><div class="bt"><div class="bf" style="width:${(rl/100*100).toFixed(0)}%;background:#e24b4a"></div></div><div class="bv dn">${inr(rl)}/ret</div></div></div>`;}).join('');
+  const catF={},catR={},catUF={},catUR={};
+  fwd.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');if(!catF[c])catF[c]={settled:0,comm:0,fwdLog:0};catF[c].settled+=r.total_actual_settlement||0;catF[c].comm+=Math.abs(r.total_commission||0);catF[c].fwdLog+=r.total_logistics_deduction||0;});
+  ret.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');if(!catR[c])catR[c]={clawback:0,revLog:0};catR[c].clawback+=Math.abs(r.total_actual_settlement||0);catR[c].revLog+=r.total_logistics_deduction||0;});
+  fwdU.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');catUF[c]=(catUF[c]||0)+(r.amount_pending_settlement||0);});
+  retU.forEach(r=>{const vi=vanInfo(r.sku_code);const c=vi?vi.cat:(r.article_type||'Other');catUR[c]=(catUR[c]||0)+Math.abs(r.amount_pending_settlement||0);});
+  document.getElementById('sett-cat-tbody').innerHTML=Object.entries(catF).sort((a,b)=>b[1].settled-a[1].settled).map(([cat,d])=>{const rd=catR[cat]||{clawback:0,revLog:0};const net=d.settled-rd.clawback;return `<tr><td>${catBadge(cat)}</td><td class="up">${inr(d.settled)}</td><td class="warn">${inr(catUF[cat]||0)}</td><td class="dn">-${inr(rd.clawback)}</td><td class="warn">${inr(catUR[cat]||0)}</td><td class="${net>0?'up':'dn'}">${inr(net)}</td><td class="dn">${inr(d.comm)}</td><td class="dn">${inr(d.fwdLog)}</td></tr>`;}).join('');
+}
+
+// ── GEO ──
+function renderGeo(){
+  const fwd=DB.fwd,ret=DB.ret;
+  if(!fwd.length){document.getElementById('geo-order-bars').innerHTML='<div class="empty">Upload reports</div>';return;}
+  const stF={},stR={};
+  fwd.forEach(r=>{let s=(r.shipping_state||'').trim();if(!s)return;const sn=SN[s]||s;if(!stF[sn])stF[sn]={orders:0,rev:0};stF[sn].orders++;stF[sn].rev+=r.customer_paid_amt||0;});
+  ret.forEach(r=>{let s=(r.shipping_state||'').trim();if(!s)return;const sn=SN[s]||s;stR[sn]=(stR[sn]||0)+1;});
+  const totalRev=fwd.reduce((a,r)=>a+(r.customer_paid_amt||0),0);
+  const byO=Object.entries(stF).sort((a,b)=>b[1].orders-a[1].orders).slice(0,10);
+  const byR=Object.entries(stF).map(([s,d])=>({s,rate:stR[s]?stR[s]/d.orders*100:0,orders:d.orders})).filter(x=>x.orders>5).sort((a,b)=>b.rate-a.rate).slice(0,10);
+  const maxO=byO[0]?.[1].orders||1,maxR=byR[0]?.rate||1;
+  document.getElementById('geo-order-bars').innerHTML=byO.map(([s,d])=>`<div class="br"><div class="bl" style="min-width:120px">${s}</div><div class="bt"><div class="bf" style="width:${(d.orders/maxO*100).toFixed(0)}%;background:#7f77dd"></div></div><div class="bv">${d.orders}</div></div>`).join('');
+  document.getElementById('geo-ret-bars').innerHTML=byR.map(d=>`<div class="br"><div class="bl" style="min-width:120px">${d.s}</div><div class="bt"><div class="bf" style="width:${(d.rate/maxR*100).toFixed(0)}%;background:#e24b4a"></div></div><div class="bv dn">${pct(d.rate)}</div></div>`).join('');
+  document.getElementById('geo-tbody').innerHTML=Object.entries(stF).sort((a,b)=>b[1].rev-a[1].rev).map(([s,d])=>{const rc=stR[s]||0;const rr=d.orders>0?rc/d.orders*100:0;return `<tr><td>${s}</td><td>${d.orders}</td><td class="dn">${rc}</td><td class="${rr>20?'dn':''}">${pct(rr)}</td><td>${inr(d.rev)}</td><td>${inr(d.orders>0?d.rev/d.orders:0)}</td><td>${pct(totalRev>0?d.rev/totalRev*100:0)}</td></tr>`;}).join('');
+}
+
+// ── MISC ──
+function sendFeedback(){window.open('mailto:your@email.com?subject=Bani Women Brand OS Feedback','_blank');}
+
+// Init
+renderProfMetrics();
+</script>
+</body>
+</html>
