@@ -649,9 +649,11 @@ code{font-family:var(--fm);font-size:11px;background:var(--cb2);padding:1px 5px;
 // BANI WOMEN BRAND OS v2 — Multi-month · Top/Torso/Tail · Reconciliation · Inventory · Rebates
 
 const MONTHS=['Mar26','Apr26','May26','Jun26','Jul26','Aug26','Sep26','Oct26','Nov26','Dec26','Jan27','Feb27','Mar27'];
+const MTH_NAMES={'Mar26':'March 2026','Apr26':'April 2026','May26':'May 2026','Jun26':'June 2026','Jul26':'July 2026','Aug26':'August 2026','Sep26':'September 2026','Oct26':'October 2026','Nov26':'November 2026','Dec26':'December 2026','Jan27':'January 2027','Feb27':'February 2027','Mar27':'March 2027'};
 const MS={Mar26:{},Apr26:{},May26:{},Jun26:{},Jul26:{},Aug26:{},Sep26:{},Oct26:{},Nov26:{},Dec26:{},Jan27:{},Feb27:{},Mar27:{}};
 let ACT='all',UPM=null,S2V={},VL=[],PMC='all',TTT_T='Top';
 const IS={},CH={};
+let IB_CACHE=null, IB_CACHE_KEY='';
 
 // COGS pre-loaded from your session
 const COGS={
@@ -1495,10 +1497,7 @@ function renderPMMetrics(){document.getElementById('pm-metrics').innerHTML=[['SK
 function renderPM(){const q=(document.getElementById('pm-search')?.value||'').toLowerCase(),sz=document.getElementById('pm-size')?.value||'';let rows=VL.filter(r=>{if(PMC!=='all'&&r.cat!==PMC)return false;if(sz&&r.size!==sz)return false;if(q&&!r.van.toLowerCase().includes(q)&&!r.design.toLowerCase().includes(q)&&!r.color.toLowerCase().includes(q))return false;return true;});document.getElementById('pm-table').innerHTML=rows.length?rows.slice(0,60).map(r=>`<tr><td class="mono">${r.van}</td><td class="mono">${r.design}</td><td style="font-size:11px">${r.color||'—'}</td><td>${szBadge(r.size)}</td><td>${catBadge(r.cat)}</td><td class="mono">${r.style_id||'—'}</td><td class="mono">${r.sku_id||'—'}</td></tr>`).join(''):'<tr><td colspan="7" class="empty">Upload Listing_IDs.xlsx</td></tr>';document.getElementById('pm-count').textContent='Showing '+Math.min(rows.length,60)+' of '+rows.length;}
 function doLookup(){const q=(document.getElementById('lookup-q')?.value||'').trim(),cont=document.getElementById('lookup-result');if(!q||q.length<3){cont.innerHTML='';return;}const qL=q.toLowerCase(),qN=parseInt(q.replace(/\D/g,''))||0,type=document.getElementById('lookup-type')?.value||'all';const matches=VL.filter(r=>{if(type==='van'||type==='all')if(r.van.toLowerCase().includes(qL)||r.design.toLowerCase().includes(qL))return true;if(type==='sku'||type==='all')if(qN&&r.sku_id===qN)return true;if(type==='style'||type==='all')if(qN&&r.style_id===qN)return true;return false;});if(!matches.length){cont.innerHTML='<div class="empty">No match</div>';return;}cont.innerHTML='<div style="margin-top:.75rem">'+matches.slice(0,5).map(r=>`<div style="border:1px solid var(--br);border-radius:var(--rmd);padding:9px;margin-bottom:5px"><div class="mono" style="font-weight:500;font-size:12px;margin-bottom:5px">${r.van}</div><div style="display:flex;gap:10px;flex-wrap:wrap;font-size:12px"><span style="color:var(--ct2)">Design: <strong class="mono">${r.design}</strong></span><span style="color:var(--ct2)">Colour: <strong>${r.color||'—'}</strong></span><span>Size: ${szBadge(r.size)}</span><span>Cat: ${catBadge(r.cat)}</span></div><div style="display:flex;gap:10px;font-size:12px;margin-top:3px"><span style="color:var(--ct2)">Style ID: <code>${r.style_id}</code></span><span style="color:var(--ct2)">SKU ID: <code>${r.sku_id}</code></span></div></div>`).join('')+(matches.length>5?`<div style="font-size:11px;color:var(--ct2)">+${matches.length-5} more</div>`:'')+`</div>`;}
 
-// Inventory
-const MTH_NAMES={'Mar26':'March 2026','Apr26':'April 2026','May26':'May 2026','Jun26':'June 2026','Jul26':'July 2026','Aug26':'August 2026','Sep26':'September 2026','Oct26':'October 2026','Nov26':'November 2026','Dec26':'December 2026','Jan27':'January 2027','Feb27':'February 2027','Mar27':'March 2027'};
 // IB is now computed dynamically from uploaded data — see buildInvBase()
-let IB_CACHE=null, IB_CACHE_KEY='';
 
 function buildInvBase(){
   // Build from uploaded settlement data across all months
@@ -1953,6 +1952,24 @@ function filterGeoPin(){
     <td class="dn">${d.returns.toLocaleString()}</td>
     <td class="${d.retRate>30?'dn':''}">${pct(d.retRate)}</td>
   </tr>`).join('');
+}
+
+// Auto-refresh current section after any data load
+function autoRefresh(){
+  const sec=document.querySelector('.sec.active');
+  if(!sec) return;
+  const id=sec.id.replace('sec-','');
+  const fn={
+    dashboard:renderDB, compare:renderCompare, reconcile:runRecon,
+    pl:renderPL, cashflow:renderCF, nod:renderNOD,
+    ttt:renderTTT, profitability:()=>{renderPM2();renderProf();},
+    rebate:renderRebate, products:()=>{renderPMMetrics();renderPM();},
+    inventory:renderInv, returns:renderRet, operations:renderOps,
+    settlement:renderSett, geo:renderGeo,
+  };
+  if(fn[id]) fn[id]();
+  // Always re-run reconciliation badge count
+  if(id!=='reconcile') runRecon();
 }
 
 // Init
